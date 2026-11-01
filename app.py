@@ -200,7 +200,8 @@ p{{line-height:1.65}}
 /* hero */
 .hero{{padding:64px 0 40px}}
 .hero .grid{{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}}
-.hero h1{{font-size:clamp(44px,6.4vw,92px);line-height:.98;letter-spacing:-.02em;color:var(--teal)}}
+.hero h1{{font-size:clamp(42px,5.6vw,84px);line-height:1;letter-spacing:-.02em;color:var(--teal)}}
+.hero h1 .promise{{display:block;margin-top:.25em;font-size:.68em;line-height:1.08;font-style:italic;font-weight:500;color:var(--clay)}}
 .hero .sub{{font-size:clamp(18px,1.7vw,22px);line-height:1.55;color:var(--muted);max-width:44ch;margin:28px 0 34px}}
 .hero .ctas{{display:flex;gap:14px;flex-wrap:wrap}}
 .cover{{position:relative;aspect-ratio:1/1;border-radius:28px;overflow:hidden;box-shadow:0 30px 60px -30px rgba(14,51,64,.45)}}
@@ -394,8 +395,8 @@ H(f"""
 <section class="hero" id="inicio"><div class="wrap">
   <div class="grid">
     <div>
-      <h1>Ellas lo dan todo. Es hora de que el mundo las escuche.</h1>
-      <p class="sub">Desde Mi Orilla es el podcast intercultural de la Universidad Bolivariana del Ecuador que sienta frente a frente a dos mujeres —profesionales, sabias, lideresas de sus comunidades— que casi nunca aparecen en los medios.</p>
+      <h1>Nadie conoce sus nombres. <span class="promise">Muy pronto, el mundo entero los va a pronunciar.</span></h1>
+      <p class="sub">Son médicas, maestras, ingenieras, artesanas, parteras y lideresas que sostienen al Ecuador en silencio. Desde Mi Orilla, el podcast intercultural de la UBE, les entrega el micrófono para que su voz cruce fronteras.</p>
       <div class="ctas">
         <a class="btn p" href="#video">Ver el video</a>
         <a class="btn o" href="#arbol">Explorar el Árbol de Preguntas</a>
