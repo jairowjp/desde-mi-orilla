@@ -208,13 +208,12 @@ p{{line-height:1.65}}
 .nav nav a{{counter-increment:mi;position:relative;display:inline-flex;align-items:baseline;gap:6px;padding:9px 14px 10px;border-radius:999px;white-space:nowrap;
   text-decoration:none;color:#fff;font-family:var(--serif);font-weight:600;font-size:17px;letter-spacing:.005em;
   text-shadow:0 1px 8px rgba(90,40,50,.28);transition:color .25s,background .3s,box-shadow .3s,transform .25s}}
-.nav nav a::before{{content:counter(mi,decimal-leading-zero);font:600 10.5px var(--sans);letter-spacing:.08em;opacity:.75;transform:translateY(-5px)}}
+.nav nav a::before{{display:none}}
 .nav nav a::after{{content:"";position:absolute;left:16px;right:16px;bottom:4px;height:2px;border-radius:2px;background:#fff;
   transform:scaleX(0);transform-origin:center;transition:transform .3s cubic-bezier(.3,.7,.2,1)}}
 .nav nav a:hover,.nav nav a:focus-visible{{background:rgba(255,255,255,.16);box-shadow:inset 0 0 0 1px rgba(255,255,255,.35);transform:translateY(-1px)}}
 .nav nav a:hover::after,.nav nav a:focus-visible::after{{transform:scaleX(1)}}
 .nav nav a.on{{background:#fff;color:var(--teal);text-shadow:none;box-shadow:0 6px 18px -6px rgba(14,51,64,.45)}}
-.nav nav a.on::before{{opacity:1;color:var(--clay)}}
 .nav nav a.on::after{{transform:scaleX(1);background:linear-gradient(90deg,var(--clay),var(--lav));left:14px;right:14px;bottom:3px}}
 .nav .cta{{position:relative;display:inline-flex;align-items:center;gap:10px;padding:11px 20px 11px 12px;border-radius:999px;text-decoration:none;overflow:hidden;white-space:nowrap;flex:none;
   color:#fff!important;font:600 14.5px var(--sans);background:linear-gradient(110deg,#144556,#1F5E70);box-shadow:0 8px 22px -8px rgba(14,51,64,.7);transition:transform .2s,box-shadow .2s}}
@@ -438,6 +437,101 @@ if stand_mode:
             question_form("stand_form")
     st.stop()
 
+
+# ---------------------------------------------------------------------------
+# Hero: piezas animadas
+# ---------------------------------------------------------------------------
+def words(text: str, start: float) -> str:
+    out = []
+    for i, w in enumerate(text.split()):
+        out.append(f'<span class="w" style="animation-delay:{start + i*0.12:.2f}s">{html.escape(w)}</span>')
+    return " ".join(out)
+
+
+SWASH = ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 26">'
+         '<style>path{stroke-dasharray:340;stroke-dashoffset:340;animation:d 1.3s 1.7s cubic-bezier(.6,.1,.2,1) forwards}'
+         '@keyframes d{to{stroke-dashoffset:0}}@media (prefers-reduced-motion:reduce){path{animation:none;stroke-dashoffset:0}}</style>'
+         '<path d="M4 18 C 70 4, 170 4, 296 13" stroke="#CF764E" stroke-width="6" fill="none" stroke-linecap="round"/></svg>')
+
+_ROLES = [("Partera", "Esmeraldas", "#CF764E"), ("Tejedora", "Otavalo", "#A57DB7"), ("Ingeniera", "Guayaquil", "#5FA3B3"),
+          ("Sabia shuar", "Morona Santiago", "#8DB97C"), ("Agricultora montubia", "Manabí", "#E0AD4F"),
+          ("Médica", "Cuenca", "#CF764E"), ("Lideresa afro", "Valle del Chota", "#A57DB7"), ("Maestra kichwa", "Chimborazo", "#5FA3B3"),
+          ("Emprendedora", "Galápagos", "#8DB97C"), ("Cantora", "San Lorenzo", "#E0AD4F"), ("Científica", "Quito", "#CF764E"),
+          ("Artesana", "Saraguro", "#A57DB7")]
+MARQ = "".join(f'<span class="mi"><i style="background:{c}"></i><b>{r}</b> en {p}</span>' for r, p, c in _ROLES)
+
+DRIFT_SVG = ('<svg xmlns="http://www.w3.org/2000/svg" width="480" height="120" viewBox="0 0 480 120">'
+             '<path d="M0 60 C 80 20 160 20 240 60 S 400 100 480 60" fill="none" stroke="#144556" stroke-width="1.4"/>'
+             '<path d="M0 84 C 80 44 160 44 240 84 S 400 124 480 84" fill="none" stroke="#CF764E" stroke-width="1.2"/>'
+             '<path d="M0 36 C 80 -4 160 -4 240 36 S 400 76 480 36" fill="none" stroke="#A57DB7" stroke-width="1.2"/></svg>')
+
+HERO_CSS = """
+.hero{position:relative;overflow:hidden;padding:46px 0 0;background:linear-gradient(180deg,#F6EFE3 0%,#F3ECDF 60%,#EFE6D6 100%)}
+.hero .wrap{position:relative;z-index:2}
+.hero .blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;z-index:0;animation:blob 16s ease-in-out infinite alternate}
+.hero .b1{width:520px;height:520px;background:#F2B08F;left:-160px;top:-120px}
+.hero .b2{width:460px;height:460px;background:#C9B3E2;right:-120px;top:40px;animation-delay:-5s}
+.hero .b3{width:380px;height:380px;background:#9CC7CF;left:38%;bottom:-160px;animation-delay:-9s;opacity:.38}
+@keyframes blob{0%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,-30px) scale(1.08)}100%{transform:translate(-30px,25px) scale(.95)}}
+.hero .drift{position:absolute;left:0;right:0;bottom:70px;height:120px;z-index:1;opacity:.22;background:url(__DRIFT__) repeat-x;background-size:480px 120px;animation:drift 38s linear infinite}
+@keyframes drift{to{background-position:-480px 0}}
+.hero .grid{display:grid;grid-template-columns:1.08fr .92fr;gap:60px;align-items:center}
+.badge{display:inline-flex;align-items:center;gap:12px;margin:0 0 22px;padding:9px 18px 9px 14px;border-radius:999px;
+  background:rgba(255,255,255,.62);backdrop-filter:blur(6px);box-shadow:0 6px 18px -10px rgba(120,60,70,.5),inset 0 0 0 1px rgba(207,118,78,.28);
+  font:italic 500 clamp(17px,1.5vw,20px) var(--serif);color:var(--clay);animation:fadeup .8s .05s both}
+.badge .pulse{width:10px;height:10px;border-radius:50%;background:var(--clay);box-shadow:0 0 0 0 rgba(207,118,78,.6);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 12px rgba(207,118,78,0)}100%{box-shadow:0 0 0 0 rgba(207,118,78,0)}}
+.hl{font-size:clamp(46px,6.4vw,96px)!important;line-height:.98!important;letter-spacing:-.025em;color:var(--teal);margin:0}
+.hl .w{display:inline-block;animation:wordin .9s cubic-bezier(.2,.7,.2,1) both}
+@keyframes wordin{from{opacity:0;transform:translateY(40%) rotate(2deg);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}
+.promise2{margin:14px 0 0;font:italic 500 clamp(28px,3.5vw,50px)/1.12 var(--serif);animation:fadeup .9s .95s both}
+.promise2 .grad{background:linear-gradient(90deg,#CF764E,#C0628A 45%,#8E6BC1 80%,#CF764E);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sheen 7s linear infinite}
+.promise2 .swash{position:relative;display:inline-block;color:#8E6BC1}
+.promise2 .swash img.u{position:absolute;left:-2%;width:104%!important;bottom:-.32em}
+@keyframes sheen{to{background-position:-250% 0}}
+@keyframes fadeup{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.lede{margin:30px 0 0;max-width:40ch;font-size:clamp(19px,1.6vw,22px);line-height:1.55;color:var(--ink);animation:fadeup .9s 1.3s both}
+.lede mark{background:linear-gradient(transparent 58%,rgba(165,125,183,.42) 58%) no-repeat;background-size:0% 100%;color:inherit;padding:0 2px;animation:marker 1.2s 2.2s forwards}
+@keyframes marker{to{background-size:100% 100%}}
+.defcard{position:relative;margin:24px 0 30px;padding:20px 22px 18px 26px;border-radius:20px;background:rgba(255,255,255,.58);backdrop-filter:blur(8px);
+  box-shadow:0 18px 40px -26px rgba(14,51,64,.45),inset 0 0 0 1px rgba(255,255,255,.8);animation:fadeup .9s 1.55s both;max-width:560px}
+.defcard::before{content:"";position:absolute;left:0;top:16px;bottom:16px;width:5px;border-radius:5px;background:linear-gradient(180deg,var(--teal),var(--clay),var(--lav))}
+.defcard p{margin:0;font-size:16.5px;line-height:1.6;color:var(--muted)}
+.defcard b{color:var(--teal);font-family:var(--serif);font-size:18px}
+.defcard em{color:var(--clay);font-family:var(--serif)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chips span{display:inline-flex;align-items:center;gap:7px;padding:6px 13px;border-radius:999px;background:#fff;font:600 13.5px var(--sans);color:var(--c);box-shadow:inset 0 0 0 1.5px var(--c)}
+.chips span::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--c)}
+.hero .ctas{animation:fadeup .9s 1.8s both}
+.btn.glow{box-shadow:0 12px 26px -10px rgba(14,51,64,.7)}
+.btn i.play{width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.2);display:inline-flex;align-items:center;justify-content:center}
+.btn i.play::after{content:"";margin-left:3px;border-style:solid;border-width:5px 0 5px 8px;border-color:transparent transparent transparent #fff}
+.stage{position:relative;padding:34px;animation:fadeup 1.1s .4s both}
+.stage .ring{position:absolute;inset:0;border-radius:40px;border:2px dashed rgba(207,118,78,.45);animation:spin 60s linear infinite;transform-origin:center}
+@keyframes spin{to{transform:rotate(360deg)}}
+.stage .cover{animation:bob 7s ease-in-out infinite;box-shadow:0 40px 70px -30px rgba(14,51,64,.55)}
+@keyframes bob{50%{transform:translateY(-12px) rotate(-.6deg)}}
+.cover .eq{position:absolute;left:50%;bottom:7%;transform:translateX(-50%);display:flex;gap:5px;align-items:flex-end;height:34px}
+.cover .eq i{width:5px;border-radius:3px;background:#fff;opacity:.9;height:30%;animation:eq 1.1s ease-in-out infinite alternate}
+.cover .eq i:nth-child(2n){animation-duration:.8s}.cover .eq i:nth-child(3n){animation-duration:1.4s}.cover .eq i:nth-child(4n){animation-delay:-.4s}
+@keyframes eq{to{height:100%}}
+.float{position:absolute;z-index:3;display:inline-flex;align-items:center;gap:8px;padding:9px 15px;border-radius:999px;background:#fff;
+  font:600 13.5px var(--sans);color:var(--teal);box-shadow:0 14px 30px -14px rgba(14,51,64,.55);animation:bob 6s ease-in-out infinite}
+.float i{width:9px;height:9px;border-radius:50%}
+.f1{left:-26px;top:3%}.f2{right:-30px;bottom:24%;animation-delay:-2s}.f3{left:4%;bottom:-6px;animation-delay:-4s}
+.marquee{position:relative;z-index:2;display:flex;align-items:center;gap:0;margin-top:46px;background:var(--teal);color:var(--sand);overflow:hidden}
+.mlabel{flex:none;padding:16px 26px;background:var(--clay);color:#fff;font:italic 600 18px var(--serif);position:relative;z-index:2;box-shadow:12px 0 24px -6px rgba(14,51,64,.6)}
+.mtrack{overflow:hidden;flex:1;mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.mrow{display:flex;width:max-content;animation:marq 48s linear infinite}
+.mi{display:inline-flex;align-items:center;gap:9px;padding:16px 26px;font-size:16px;white-space:nowrap;color:rgba(243,236,223,.85)}
+.mi b{font-family:var(--serif);font-weight:600;color:#fff;font-size:17px}
+.mi i{width:8px;height:8px;border-radius:50%}
+@keyframes marq{to{transform:translateX(-50%)}}
+@media (max-width:900px){.hero .grid{grid-template-columns:1fr;gap:30px}.stage{padding:22px}.f1{left:-6px}.f2{right:-6px}.mlabel{font-size:15px;padding:14px 16px}}
+"""
+
+H("<style>" + HERO_CSS.replace("__DRIFT__", svg_uri(DRIFT_SVG)) + "</style>")
+
 # ---------------------------------------------------------------------------
 # Navegación + Hero
 # ---------------------------------------------------------------------------
@@ -452,28 +546,43 @@ H(f"""
 </div></div>
 <div class="navspace"></div>
 
-<section class="hero" id="inicio"><div class="wrap">
+<section class="hero" id="inicio">
+  <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+  <div class="drift"></div>
+  <div class="wrap">
   <div class="grid">
-    <div>
-      <p class="kicker">Bienvenidos a la orilla del cambio.</p>
-      <h1>Nadie conoce sus nombres. <span class="promise">Muy pronto, el mundo entero los va a pronunciar.</span></h1>
-      <p class="sub">En Ecuador, las mujeres sostienen la cultura y el territorio, pero sus voces están fragmentadas en los medios. Desde Mi Orilla es una infraestructura de innovación social transmedia diseñada para registrar, interconectar y potenciar la memoria de las comunidades, sin intermediarios.</p>
+    <div class="copy">
+      <p class="badge"><span class="pulse"></span>Bienvenidos a la orilla del cambio</p>
+      <h1 class="hl">{words("Nadie conoce sus nombres.", 0.25)}</h1>
+      <p class="promise2"><span class="grad">Muy pronto, el mundo entero los va a</span> <span class="swash">pronunciar.{svg_img(SWASH, "", cls="u")}</span></p>
+      <p class="lede">En Ecuador, las mujeres sostienen la cultura y el territorio, pero <mark>sus voces están fragmentadas en los medios.</mark></p>
+      <div class="defcard">
+        <p><b>Desde Mi Orilla</b> es una infraestructura de innovación social transmedia diseñada para registrar, interconectar y potenciar la memoria de las comunidades, <em>sin intermediarios.</em></p>
+        <div class="chips"><span style="--c:#144556">Registrar</span><span style="--c:#CF764E">Interconectar</span><span style="--c:#A57DB7">Potenciar</span></div>
+      </div>
       <div class="ctas">
-        <a class="btn p" href="#video">Ver el video</a>
+        <a class="btn p glow" href="#video"><i class="play"></i>Ver el video</a>
         <a class="btn o" href="#atarraya">Explorar la Atarraya de Saberes</a>
       </div>
     </div>
-    <div class="cover">
-      {svg_img(orillas_scene(idp="hero", leaf_left=False), "", cls="scene", style="position:absolute;inset:0;height:100%")}
-      <div class="logo">{logo('dmo_logo.svg', "Desde Mi Orilla")}</div>
+    <div class="stage">
+      <div class="ring"></div>
+      <div class="cover">
+        {svg_img(orillas_scene(idp="hero", leaf_left=False), "", cls="scene", style="position:absolute;inset:0;height:100%")}
+        <div class="logo">{logo('dmo_logo.svg', "Desde Mi Orilla")}</div>
+        <div class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+      <span class="float f1"><i style="background:#CF764E"></i>Podcast intercultural</span>
+      <span class="float f2"><i style="background:#E0AD4F"></i>Radio en zonas sin internet</span>
+      <span class="float f3"><i style="background:#A57DB7"></i>Atarraya de Saberes</span>
     </div>
   </div>
-  <div class="pillars">
-    <div><b>Registrar</b><span>la memoria oral de mujeres de todas las culturas del país</span></div>
-    <div><b>Interconectar</b><span>orillas distintas en una misma atarraya de saberes</span></div>
-    <div><b>Potenciar</b><span>sus voces, sus oficios y sus economías en nuevos mercados</span></div>
   </div>
-</div></section>
+  <div class="marquee" aria-label="Mujeres de todo el Ecuador">
+    <div class="mlabel">Ellas ya están aquí</div>
+    <div class="mtrack"><div class="mrow">{MARQ}{MARQ}</div></div>
+  </div>
+</section>
 {wave(SAND, DEEP)}
 """)
 
