@@ -180,8 +180,8 @@ header[data-testid="stHeader"],[data-testid="stToolbar"],[data-testid="stDecorat
 a{{color:inherit}}
 :focus-visible{{outline:3px solid var(--lav);outline-offset:3px}}
 .wrap{{max-width:var(--maxw);margin:0 auto;padding:0 28px}}
-section.s{{padding:96px 0;scroll-margin-top:76px}}
-section.hero{{scroll-margin-top:76px}}
+section.s{{padding:96px 0;scroll-margin-top:80px}}
+section.hero{{scroll-margin-top:80px}}
 .serif{{font-family:var(--serif)}}
 h1,h2,h3{{font-family:var(--serif);font-weight:600;letter-spacing:-.01em;color:inherit;margin:0}}
 h2.t{{font-size:clamp(34px,4.6vw,58px);line-height:1.06;max-width:16ch}}
@@ -190,26 +190,51 @@ p.lead{{font-size:clamp(18px,1.6vw,21px);line-height:1.6;max-width:60ch;color:va
 p{{line-height:1.65}}
 .wave{{display:block;width:100%;height:90px!important}}
 /* nav */
-.nav{{position:fixed;top:0;left:0;right:0;z-index:999990;background:rgba(243,236,223,.92);backdrop-filter:blur(8px);border-bottom:1px solid rgba(20,69,86,.1)}}
-.nav .wrap{{display:flex;align-items:center;justify-content:space-between;height:68px;gap:24px}}
-.nav .wm{{width:156px;display:block}}
-.nav nav{{display:flex;gap:26px;font-size:15px}}
-.nav nav a{{text-decoration:none;color:var(--ink)}}
-.nav nav a:hover{{color:var(--clay)}}
+.nav{{position:fixed;top:0;left:0;right:0;z-index:999990;color:var(--sand);
+  background:
+    radial-gradient(120% 220% at 0% 0%,rgba(207,118,78,.28) 0%,rgba(207,118,78,0) 42%),
+    radial-gradient(120% 220% at 100% 100%,rgba(165,125,183,.32) 0%,rgba(165,125,183,0) 45%),
+    linear-gradient(100deg,#0B2A35 0%,#0E3340 45%,#123E4C 100%);
+  box-shadow:0 10px 30px -12px rgba(8,30,38,.55)}}
+.nav::before{{content:"";position:absolute;inset:0;pointer-events:none;opacity:.10;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='32' viewBox='0 0 64 32'%3E%3Cpath d='M0 16 Q16 4 32 16 T64 16' fill='none' stroke='%23F3ECDF' stroke-width='1'/%3E%3Cpath d='M0 32 Q16 20 32 32 T64 32' fill='none' stroke='%23F3ECDF' stroke-width='1'/%3E%3C/svg%3E");background-size:64px 32px}}
+.nav::after{{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;
+  background:linear-gradient(90deg,#5FA3B3,var(--clay) 30%,#E0AD4F 50%,var(--lav) 70%,#8DB97C);background-size:200% 100%;animation:navflow 9s linear infinite}}
+@keyframes navflow{{to{{background-position:200% 0}}}}
+.nav .wrap{{position:relative;display:flex;align-items:center;justify-content:space-between;height:72px;gap:24px}}
+.nav .wm{{width:150px;flex:none;display:block;transition:transform .3s}}
+.nav .wm:hover{{transform:scale(1.04)}}
+.nav nav{{display:flex;gap:2px;font-size:14.5px;white-space:nowrap}}
+.nav nav a{{--c:var(--clay);position:relative;display:inline-flex;align-items:center;gap:7px;padding:8px 12px;border-radius:999px;white-space:nowrap;
+  text-decoration:none;color:rgba(243,236,223,.88);font-weight:500;letter-spacing:.01em;transition:color .25s,background .25s,box-shadow .25s}}
+.nav nav a::before{{content:"";width:7px;height:7px;border-radius:50%;background:var(--c);box-shadow:0 0 0 0 var(--c);transition:transform .25s,box-shadow .25s}}
+.nav nav a::after{{content:"";position:absolute;left:14px;right:14px;bottom:3px;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--c),#F3ECDF);
+  transform:scaleX(0);transform-origin:center;transition:transform .3s cubic-bezier(.3,.7,.2,1)}}
+.nav nav a:nth-child(1){{--c:#5FA3B3}} .nav nav a:nth-child(2){{--c:#CF764E}} .nav nav a:nth-child(3){{--c:#E0AD4F}}
+.nav nav a:nth-child(4){{--c:#A57DB7}} .nav nav a:nth-child(5){{--c:#8DB97C}} .nav nav a:nth-child(6){{--c:#E3A584}}
+.nav nav a:hover,.nav nav a:focus-visible{{color:#fff;background:rgba(243,236,223,.08);box-shadow:inset 0 0 0 1px rgba(243,236,223,.14)}}
+.nav nav a:hover::before,.nav nav a:focus-visible::before{{transform:scale(1.35);box-shadow:0 0 12px 2px var(--c)}}
+.nav nav a:hover::after,.nav nav a:focus-visible::after{{transform:scaleX(1)}}
+.nav .cta{{position:relative;display:inline-flex;align-items:center;gap:10px;padding:11px 20px 11px 12px;border-radius:999px;text-decoration:none;overflow:hidden;white-space:nowrap;flex:none;
+  color:#fff!important;font:600 14.5px var(--sans);background:linear-gradient(110deg,var(--clay),#B96A9A 55%,var(--lav));box-shadow:0 8px 22px -8px rgba(207,118,78,.75);transition:transform .2s,box-shadow .2s}}
+.nav .cta i{{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.22);display:inline-flex;align-items:center;justify-content:center}}
+.nav .cta i::after{{content:"";margin-left:3px;border-style:solid;border-width:6px 0 6px 10px;border-color:transparent transparent transparent #fff}}
+.nav .cta::after{{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-20deg);animation:shine 4.5s ease-in-out infinite}}
+@keyframes shine{{0%,70%{{left:-60%}}100%{{left:130%}}}}
+.nav .cta:hover{{transform:translateY(-1px);box-shadow:0 12px 28px -8px rgba(165,125,183,.85)}}
 .btn{{display:inline-flex;align-items:center;gap:10px;border-radius:999px;padding:14px 24px;font:500 16px var(--sans);text-decoration:none;transition:transform .15s}}
 .btn:hover{{transform:translateY(-1px)}}
 .btn.p{{background:var(--teal);color:var(--sand)!important}}
 .btn.o{{border:1.5px solid var(--teal);color:var(--teal)!important}}
 .btn.c{{background:var(--clay);color:#fff!important}}
-.nav .btn{{padding:10px 18px;font-size:14px}}
-.navspace{{height:68px}}
-.nav nav a.on,.nav nav a:focus-visible{{color:var(--clay)}}
+.navspace{{height:72px}}
+@media (max-width:1180px) and (min-width:901px){{.nav nav a::before{{display:none}} .nav nav a{{padding:8px 10px}}}}
 @media (max-width:900px){{
   .nav .wrap{{flex-wrap:wrap;height:auto;padding-top:10px;padding-bottom:0;row-gap:6px}}
-  .nav nav{{order:3;width:100%;overflow-x:auto;white-space:nowrap;gap:20px;padding:6px 0 10px;scrollbar-width:none;-webkit-overflow-scrolling:touch}}
+  .nav nav{{order:3;width:100%;overflow-x:auto;white-space:nowrap;gap:4px;padding:4px 0 12px;scrollbar-width:none;-webkit-overflow-scrolling:touch}}
   .nav nav::-webkit-scrollbar{{display:none}}
-  .navspace{{height:112px}}
-  section.s,section.hero{{scroll-margin-top:118px}}
+  .navspace{{height:120px}} .nav nav a{{padding:7px 12px;font-size:14px}} .nav .wm{{width:140px}} .nav .cta{{padding:9px 16px 9px 10px;font-size:13.5px}}
+  section.s,section.hero{{scroll-margin-top:126px}}
 }}
 /* hero */
 .hero{{padding:64px 0 40px}}
@@ -416,12 +441,12 @@ if stand_mode:
 # ---------------------------------------------------------------------------
 H(f"""
 <div class="nav"><div class="wrap">
-  <a href="#inicio" class="wm" aria-label="Desde Mi Orilla, inicio">{logo('dmo_wordmark.svg', "Desde Mi Orilla")}</a>
+  <a href="#inicio" class="wm" aria-label="Desde Mi Orilla, inicio">{logo('dmo_wordmark_blanco.svg', "Desde Mi Orilla")}</a>
   <nav aria-label="Secciones">
     <a href="#problema">Por qué</a><a href="#idea">La propuesta</a><a href="#atarraya">Atarraya</a>
     <a href="#alcance">Alcance</a><a href="#economia">Economía creativa</a><a href="#vision">Si ganamos</a>
   </nav>
-  <a class="btn p" href="#video">Ver el video</a>
+  <a class="cta" href="#video"><i aria-hidden="true"></i>Ver el video</a>
 </div></div>
 <div class="navspace"></div>
 

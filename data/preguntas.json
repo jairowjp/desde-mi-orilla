@@ -37,7 +37,8 @@
       "tipo": "central",
       "ep": "01",
       "texto": "¿Quiénes somos cuando dejamos de lado las etiquetas?",
-      "autora": "Pregunta central del episodio"
+      "autora": "Pregunta central del episodio · voz real",
+      "audio_file": "P01.mp3"
     },
     {
       "orilla": "identidad",
@@ -45,98 +46,111 @@
       "ep": "01",
       "texto": "¿Qué parte de ti tuviste que esconder para que te tomaran en serio?",
       "autora": "Dilema heredado de muestra · voz real",
-      "audio_file": "pregunta_prototipo.mp3"
+      "audio_file": "P02.mp3"
     },
     {
       "orilla": "identidad",
       "tipo": "heredada",
       "ep": "01",
       "texto": "¿En qué idioma sueñas cuando nadie te escucha?",
-      "autora": "Dilema heredado de muestra"
+      "autora": "Dilema heredado de muestra · voz real",
+      "audio_file": "P03.mp3"
     },
     {
       "orilla": "territorio",
       "tipo": "central",
       "ep": "02",
       "texto": "¿Qué significa crecer y construir una vida en determinado lugar?",
-      "autora": "Pregunta central del episodio"
+      "autora": "Pregunta central del episodio · voz real",
+      "audio_file": "P04.mp3"
     },
     {
       "orilla": "territorio",
       "tipo": "heredada",
       "ep": "02",
       "texto": "¿Qué lugar te enseñó lo que ninguna escuela pudo enseñarte?",
-      "autora": "Dilema heredado de muestra"
+      "autora": "Dilema heredado de muestra · voz real",
+      "audio_file": "P05.mp3"
     },
     {
       "orilla": "territorio",
       "tipo": "heredada",
       "ep": "02",
       "texto": "Si tu barrio pudiera hablar, ¿qué diría de ti?",
-      "autora": "Dilema heredado de muestra"
+      "autora": "Dilema heredado de muestra · voz real",
+      "audio_file": "P06.mp3"
     },
     {
       "orilla": "herencia",
       "tipo": "central",
       "ep": "03",
       "texto": "¿Qué recibimos de nuestras madres y abuelas?",
-      "autora": "Pregunta central del episodio"
+      "autora": "Pregunta central del episodio · voz real",
+      "audio_file": "P07.mp3"
     },
     {
       "orilla": "herencia",
       "tipo": "heredada",
       "ep": "03",
       "texto": "¿Qué saber de tu abuela te gustaría que no se perdiera nunca?",
-      "autora": "Dilema heredado de muestra"
+      "autora": "Dilema heredado de muestra · voz real",
+      "audio_file": "P08.mp3"
     },
     {
       "orilla": "herencia",
       "tipo": "heredada",
       "ep": "03",
       "texto": "¿Qué decidiste no heredar, y por qué?",
-      "autora": "Dilema heredado de muestra"
+      "autora": "Dilema heredado de muestra · voz real",
+      "audio_file": "P09.mp3"
     },
     {
       "orilla": "oportunidades",
       "tipo": "central",
       "ep": "04",
       "texto": "¿Cómo influye ser mujer y pertenecer a determinado contexto cultural?",
-      "autora": "Pregunta central del episodio"
+      "autora": "Pregunta central del episodio · voz real",
+      "audio_file": "P10.mp3"
     },
     {
       "orilla": "oportunidades",
       "tipo": "heredada",
       "ep": "04",
       "texto": "¿Quién te abrió una puerta que tú ahora puedes abrirle a otra?",
-      "autora": "Dilema heredado de muestra"
+      "autora": "Dilema heredado de muestra · voz real",
+      "audio_file": "P11.mp3"
     },
     {
       "orilla": "oportunidades",
       "tipo": "heredada",
       "ep": "04",
       "texto": "¿Cuánto talento conoces que nunca ha salido en un medio?",
-      "autora": "Dilema heredado de muestra"
+      "autora": "Dilema heredado de muestra · voz real",
+      "audio_file": "P12.mp3"
     },
     {
       "orilla": "futuro",
       "tipo": "central",
       "ep": "05",
       "texto": "¿Qué queremos transformar para las que vienen?",
-      "autora": "Pregunta central del episodio"
+      "autora": "Pregunta central del episodio · voz real",
+      "audio_file": "P13.mp3"
     },
     {
       "orilla": "futuro",
       "tipo": "heredada",
       "ep": "05",
       "texto": "¿Qué historia te gustaría que tu nieta escuche sobre ti?",
-      "autora": "Dilema heredado de muestra"
+      "autora": "Dilema heredado de muestra · voz real",
+      "audio_file": "P14.mp3"
     },
     {
       "orilla": "futuro",
       "tipo": "heredada",
       "ep": "05",
       "texto": "¿Qué pregunta le dejarías a una mujer que todavía no ha nacido?",
-      "autora": "Dilema heredado de muestra"
+      "autora": "Dilema heredado de muestra · voz real",
+      "audio_file": "P15.mp3"
     }
   ]
 }
