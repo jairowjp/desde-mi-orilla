@@ -97,6 +97,13 @@ def fonts_css() -> str:
 
 
 @st.cache_data
+def audio_uri(name: str) -> str:
+    """Audio real de un dilema, incrustado para que suene dentro de la atarraya."""
+    data = (ROOT / "assets" / "audio" / name).read_bytes()
+    return "data:audio/mpeg;base64," + base64.b64encode(data).decode()
+
+
+@st.cache_data
 def img_b64(name: str) -> str:
     data = (IMG / name).read_bytes()
     return "data:image/webp;base64," + base64.b64encode(data).decode()
@@ -342,6 +349,7 @@ def render_atarraya(height: int) -> None:
         {**q, "autora": f"Dejado por {q['autora']}" if q.get("autora") else "Dejado por una visitante"}
         for q in visitor_questions()[-60:]
     ]
+    preguntas = [{**q, "audio": audio_uri(q["audio_file"])} if q.get("audio_file") else q for q in preguntas]
     payload = json.dumps({"orillas": orillas, "preguntas": preguntas}, ensure_ascii=False).replace("</", "<\\/")
     tpl = (ROOT / "components" / "atarraya.html").read_text(encoding="utf-8")
     page = tpl.replace("__FONTS__", fonts_css()).replace("__DATA__", payload).replace("__HEIGHT__", str(height))

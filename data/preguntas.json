@@ -44,7 +44,8 @@
       "tipo": "heredada",
       "ep": "01",
       "texto": "¿Qué parte de ti tuviste que esconder para que te tomaran en serio?",
-      "autora": "Dilema heredado de muestra"
+      "autora": "Dilema heredado de muestra · voz real",
+      "audio_file": "pregunta_prototipo.mp3"
     },
     {
       "orilla": "identidad",
