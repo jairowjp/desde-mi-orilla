@@ -190,50 +190,51 @@ p.lead{{font-size:clamp(18px,1.6vw,21px);line-height:1.6;max-width:60ch;color:va
 p{{line-height:1.65}}
 .wave{{display:block;width:100%;height:90px!important}}
 /* nav */
-.nav{{position:fixed;top:0;left:0;right:0;z-index:999990;color:var(--sand);
+.nav{{position:fixed;top:0;left:0;right:0;z-index:999990;color:#fff;
   background:
-    radial-gradient(120% 220% at 0% 0%,rgba(207,118,78,.28) 0%,rgba(207,118,78,0) 42%),
-    radial-gradient(120% 220% at 100% 100%,rgba(165,125,183,.32) 0%,rgba(165,125,183,0) 45%),
-    linear-gradient(100deg,#0B2A35 0%,#0E3340 45%,#123E4C 100%);
-  box-shadow:0 10px 30px -12px rgba(8,30,38,.55)}}
-.nav::before{{content:"";position:absolute;inset:0;pointer-events:none;opacity:.10;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='32' viewBox='0 0 64 32'%3E%3Cpath d='M0 16 Q16 4 32 16 T64 16' fill='none' stroke='%23F3ECDF' stroke-width='1'/%3E%3Cpath d='M0 32 Q16 20 32 32 T64 32' fill='none' stroke='%23F3ECDF' stroke-width='1'/%3E%3C/svg%3E");background-size:64px 32px}}
+    radial-gradient(90% 260% at 8% 0%,rgba(255,214,170,.55) 0%,rgba(255,214,170,0) 45%),
+    radial-gradient(80% 240% at 92% 100%,rgba(196,170,230,.6) 0%,rgba(196,170,230,0) 50%),
+    linear-gradient(100deg,#E4875C 0%,#D9786F 30%,#C27C9E 62%,#9F86CB 100%);
+  box-shadow:0 12px 30px -14px rgba(120,60,70,.55)}}
+.nav::before{{content:"";position:absolute;inset:0;pointer-events:none;opacity:.18;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='32' viewBox='0 0 64 32'%3E%3Cpath d='M0 16 Q16 4 32 16 T64 16' fill='none' stroke='%23FFFFFF' stroke-width='1'/%3E%3Cpath d='M0 32 Q16 20 32 32 T64 32' fill='none' stroke='%23FFFFFF' stroke-width='1'/%3E%3C/svg%3E");background-size:64px 32px}}
 .nav::after{{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;
-  background:linear-gradient(90deg,#5FA3B3,var(--clay) 30%,#E0AD4F 50%,var(--lav) 70%,#8DB97C);background-size:200% 100%;animation:navflow 9s linear infinite}}
+  background:linear-gradient(90deg,#144556,#5FA3B3 25%,#F3ECDF 50%,#5FA3B3 75%,#144556);background-size:200% 100%;animation:navflow 9s linear infinite}}
 @keyframes navflow{{to{{background-position:200% 0}}}}
-.nav .wrap{{position:relative;display:flex;align-items:center;justify-content:space-between;height:72px;gap:24px}}
-.nav .wm{{width:150px;flex:none;display:block;transition:transform .3s}}
+.nav .wrap{{position:relative;display:flex;align-items:center;justify-content:space-between;height:76px;gap:20px}}
+.nav .wm{{width:156px;flex:none;display:block;padding:7px 14px;background:#F7F1E7;border-radius:16px;box-shadow:0 6px 16px -6px rgba(90,40,50,.45),inset 0 0 0 1px rgba(255,255,255,.7);transition:transform .3s}}
 .nav .wm:hover{{transform:scale(1.04)}}
-.nav nav{{display:flex;gap:2px;font-size:14.5px;white-space:nowrap}}
-.nav nav a{{--c:var(--clay);position:relative;display:inline-flex;align-items:center;gap:7px;padding:8px 12px;border-radius:999px;white-space:nowrap;
-  text-decoration:none;color:rgba(243,236,223,.88);font-weight:500;letter-spacing:.01em;transition:color .25s,background .25s,box-shadow .25s}}
-.nav nav a::before{{content:"";width:7px;height:7px;border-radius:50%;background:var(--c);box-shadow:0 0 0 0 var(--c);transition:transform .25s,box-shadow .25s}}
-.nav nav a::after{{content:"";position:absolute;left:14px;right:14px;bottom:3px;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--c),#F3ECDF);
+.nav nav{{display:flex;gap:4px;white-space:nowrap;counter-reset:mi}}
+.nav nav a{{counter-increment:mi;position:relative;display:inline-flex;align-items:baseline;gap:6px;padding:9px 14px 10px;border-radius:999px;white-space:nowrap;
+  text-decoration:none;color:#fff;font-family:var(--serif);font-weight:600;font-size:17px;letter-spacing:.005em;
+  text-shadow:0 1px 8px rgba(90,40,50,.28);transition:color .25s,background .3s,box-shadow .3s,transform .25s}}
+.nav nav a::before{{content:counter(mi,decimal-leading-zero);font:600 10.5px var(--sans);letter-spacing:.08em;opacity:.75;transform:translateY(-5px)}}
+.nav nav a::after{{content:"";position:absolute;left:16px;right:16px;bottom:4px;height:2px;border-radius:2px;background:#fff;
   transform:scaleX(0);transform-origin:center;transition:transform .3s cubic-bezier(.3,.7,.2,1)}}
-.nav nav a:nth-child(1){{--c:#5FA3B3}} .nav nav a:nth-child(2){{--c:#CF764E}} .nav nav a:nth-child(3){{--c:#E0AD4F}}
-.nav nav a:nth-child(4){{--c:#A57DB7}} .nav nav a:nth-child(5){{--c:#8DB97C}} .nav nav a:nth-child(6){{--c:#E3A584}}
-.nav nav a:hover,.nav nav a:focus-visible{{color:#fff;background:rgba(243,236,223,.08);box-shadow:inset 0 0 0 1px rgba(243,236,223,.14)}}
-.nav nav a:hover::before,.nav nav a:focus-visible::before{{transform:scale(1.35);box-shadow:0 0 12px 2px var(--c)}}
+.nav nav a:hover,.nav nav a:focus-visible{{background:rgba(255,255,255,.16);box-shadow:inset 0 0 0 1px rgba(255,255,255,.35);transform:translateY(-1px)}}
 .nav nav a:hover::after,.nav nav a:focus-visible::after{{transform:scaleX(1)}}
+.nav nav a.on{{background:#fff;color:var(--teal);text-shadow:none;box-shadow:0 6px 18px -6px rgba(14,51,64,.45)}}
+.nav nav a.on::before{{opacity:1;color:var(--clay)}}
+.nav nav a.on::after{{transform:scaleX(1);background:linear-gradient(90deg,var(--clay),var(--lav));left:14px;right:14px;bottom:3px}}
 .nav .cta{{position:relative;display:inline-flex;align-items:center;gap:10px;padding:11px 20px 11px 12px;border-radius:999px;text-decoration:none;overflow:hidden;white-space:nowrap;flex:none;
-  color:#fff!important;font:600 14.5px var(--sans);background:linear-gradient(110deg,var(--clay),#B96A9A 55%,var(--lav));box-shadow:0 8px 22px -8px rgba(207,118,78,.75);transition:transform .2s,box-shadow .2s}}
+  color:#fff!important;font:600 14.5px var(--sans);background:linear-gradient(110deg,#144556,#1F5E70);box-shadow:0 8px 22px -8px rgba(14,51,64,.7);transition:transform .2s,box-shadow .2s}}
 .nav .cta i{{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.22);display:inline-flex;align-items:center;justify-content:center}}
 .nav .cta i::after{{content:"";margin-left:3px;border-style:solid;border-width:6px 0 6px 10px;border-color:transparent transparent transparent #fff}}
 .nav .cta::after{{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-20deg);animation:shine 4.5s ease-in-out infinite}}
 @keyframes shine{{0%,70%{{left:-60%}}100%{{left:130%}}}}
-.nav .cta:hover{{transform:translateY(-1px);box-shadow:0 12px 28px -8px rgba(165,125,183,.85)}}
+.nav .cta:hover{{transform:translateY(-1px);box-shadow:0 12px 28px -8px rgba(14,51,64,.85)}}
 .btn{{display:inline-flex;align-items:center;gap:10px;border-radius:999px;padding:14px 24px;font:500 16px var(--sans);text-decoration:none;transition:transform .15s}}
 .btn:hover{{transform:translateY(-1px)}}
 .btn.p{{background:var(--teal);color:var(--sand)!important}}
 .btn.o{{border:1.5px solid var(--teal);color:var(--teal)!important}}
 .btn.c{{background:var(--clay);color:#fff!important}}
-.navspace{{height:72px}}
-@media (max-width:1180px) and (min-width:901px){{.nav nav a::before{{display:none}} .nav nav a{{padding:8px 10px}}}}
+.navspace{{height:76px}}
+@media (max-width:1240px) and (min-width:901px){{.nav nav a::before{{display:none}} .nav nav a{{padding:8px 10px;font-size:15.5px}} .nav .wm{{width:136px;padding:6px 11px}}}}
 @media (max-width:900px){{
   .nav .wrap{{flex-wrap:wrap;height:auto;padding-top:10px;padding-bottom:0;row-gap:6px}}
   .nav nav{{order:3;width:100%;overflow-x:auto;white-space:nowrap;gap:4px;padding:4px 0 12px;scrollbar-width:none;-webkit-overflow-scrolling:touch}}
   .nav nav::-webkit-scrollbar{{display:none}}
-  .navspace{{height:120px}} .nav nav a{{padding:7px 12px;font-size:14px}} .nav .wm{{width:140px}} .nav .cta{{padding:9px 16px 9px 10px;font-size:13.5px}}
+  .navspace{{height:124px}} .nav nav a{{padding:7px 12px;font-size:15px}} .nav .wm{{width:138px;padding:6px 11px}} .nav .cta{{padding:9px 16px 9px 10px;font-size:13.5px}}
   section.s,section.hero{{scroll-margin-top:126px}}
 }}
 /* hero */
@@ -346,6 +347,7 @@ label p{{font-size:15px!important;color:var(--ink)!important;font-weight:500!imp
 .st-key-pad-form,.st-key-pad-video,.st-key-pad-kit{{max-width:var(--maxw);margin:0 auto;padding:0 28px}}
 .st-key-pad-form [data-testid="stVerticalBlock"],.st-key-pad-kit [data-testid="stVerticalBlock"]{{gap:14px!important}}
 .st-key-bg-video{{background:var(--deep)}}
+.st-key-spy{{height:0;overflow:hidden;position:absolute}}
 .st-key-bg-arbol{{background:var(--deep)}}
 .st-key-bg-form{{background:var(--sand);padding:0 0 96px}}
 .st-key-bg-kit{{background:var(--deep);padding:0 0 10px}}
@@ -441,7 +443,7 @@ if stand_mode:
 # ---------------------------------------------------------------------------
 H(f"""
 <div class="nav"><div class="wrap">
-  <a href="#inicio" class="wm" aria-label="Desde Mi Orilla, inicio">{logo('dmo_wordmark_blanco.svg', "Desde Mi Orilla")}</a>
+  <a href="#inicio" class="wm" aria-label="Desde Mi Orilla, inicio">{logo('dmo_wordmark.svg', "Desde Mi Orilla")}</a>
   <nav aria-label="Secciones">
     <a href="#problema">Por qué</a><a href="#idea">La propuesta</a><a href="#atarraya">Atarraya</a>
     <a href="#alcance">Alcance</a><a href="#economia">Economía creativa</a><a href="#vision">Si ganamos</a>
@@ -474,6 +476,42 @@ H(f"""
 </div></section>
 {wave(SAND, DEEP)}
 """)
+
+# ---------------------------------------------------------------------------
+# Menú: resalta la opción de la sección visible (scroll-spy)
+# ---------------------------------------------------------------------------
+SPY_JS = """<script>
+(function(){
+  const P = window.parent.document;
+  // id de cada sección (en orden) -> opción del menú que la representa
+  const MAP = [["inicio",null],["video",null],["problema","problema"],["idea","idea"],["orillas","idea"],
+               ["atarraya","atarraya"],["alcance","alcance"],["aliados","alcance"],["economia","economia"],
+               ["vision","vision"],["red","vision"]];
+  let last = "__";
+  function update(){
+    const nav = P.querySelector(".nav"); if(!nav) return;
+    const line = nav.getBoundingClientRect().bottom + 160;
+    let cur = null;
+    for (const [id, opt] of MAP){ const el = P.getElementById(id); if(el && el.getBoundingClientRect().top <= line) cur = opt; }
+    const links = nav.querySelectorAll("nav a");
+    if (cur === last && [...links].some(a => a.classList.contains("on")) === (cur !== null)) return;
+    last = cur;
+    links.forEach(a => {
+      const on = cur && a.getAttribute("href") === "#" + cur;
+      a.classList.toggle("on", !!on);
+      if (on) { a.setAttribute("aria-current", "true"); a.scrollIntoView({block:"nearest", inline:"center", behavior:"smooth"}); }
+      else a.removeAttribute("aria-current");
+    });
+  }
+  let raf = 0;
+  P.addEventListener("scroll", () => { if(!raf) raf = requestAnimationFrame(() => { raf = 0; update(); }); }, true);
+  window.parent.addEventListener("resize", update);
+  setInterval(update, 600);   // reaplica tras cada recarga de Streamlit
+  update();
+})();
+</script>"""
+with st.container(key="spy"):
+    components.html(SPY_JS, height=0)
 
 # ---------------------------------------------------------------------------
 # Video
