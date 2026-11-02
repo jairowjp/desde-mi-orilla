@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 440" role="img" aria-label="Antena de radio que lleva la señal a comunidades aisladas">
+<circle cx="440" cy="96" r="58" fill="#A57DB7" opacity=".9"/>
+<path d="M0 330 L120 200 L190 270 L290 150 L380 250 L450 190 L560 300 V440 H0Z" fill="#1E5A6B"/>
+<path d="M290 150 L318 182 L300 178 L285 196 L270 175Z" fill="#F3ECDF" opacity=".85"/>
+<path d="M0 370 C 120 330 200 380 300 350 C 400 320 470 360 560 340 V440 H0Z" fill="#144556"/>
+<path d="M0 410 C 110 380 210 420 320 395 C 420 372 490 405 560 392" stroke="#A57DB7" stroke-width="10" fill="none" stroke-linecap="round"/>
+<path d="M0 410 C 110 380 210 420 320 395 C 420 372 490 405 560 392" stroke="#F3ECDF" stroke-width="2" fill="none" stroke-dasharray="3 10" opacity=".7"/>
+<g stroke="#F3ECDF" stroke-width="3.5" stroke-linecap="round" fill="none">
+<path d="M96 118 L64 330 M96 118 L128 330 M76 250 L116 250 M82 200 L110 200 M88 160 L104 160 M70 290 L122 290 M76 250 L110 200 M116 250 L82 200 M70 290 L116 250 M122 290 L76 250"/></g>
+<circle cx="96" cy="114" r="8" fill="#CF764E"/>
+<path d="M96.0 92 A 26 26 0 0 1 122 118" fill="none" stroke="#CF764E" stroke-width="4.0" stroke-linecap="round" opacity="1.00"/><path d="M96.0 72 A 46 46 0 0 1 142 118" fill="none" stroke="#CF764E" stroke-width="3.3" stroke-linecap="round" opacity="0.80"/><path d="M96.0 52 A 66 66 0 0 1 162 118" fill="none" stroke="#CF764E" stroke-width="2.6" stroke-linecap="round" opacity="0.60"/><path d="M96.0 32 A 86 86 0 0 1 182 118" fill="none" stroke="#CF764E" stroke-width="1.9" stroke-linecap="round" opacity="0.40"/>
+<path d="M110 100 C 230 0 380 40 470 250" stroke="#CF764E" stroke-width="2.5" fill="none" stroke-dasharray="2 9" stroke-linecap="round"/>
+<path d="M112 108 C 220 70 300 120 352 310" stroke="#8DB97C" stroke-width="2.5" fill="none" stroke-dasharray="2 9" stroke-linecap="round"/>
+<path d="M114 116 C 200 120 230 200 236 320" stroke="#A57DB7" stroke-width="2.5" fill="none" stroke-dasharray="2 9" stroke-linecap="round"/>
+<g transform="translate(470 282)"><path d="M-14 0 V-16 L0 -28 L14 -16 V0Z" fill="#F3ECDF"/><rect x="-4" y="-10" width="8" height="10" fill="#CF764E"/><circle cx="0" cy="-44" r="5" fill="#CF764E"/></g><g transform="translate(352 342)"><path d="M-14 0 V-16 L0 -28 L14 -16 V0Z" fill="#F3ECDF"/><rect x="-4" y="-10" width="8" height="10" fill="#8DB97C"/><circle cx="0" cy="-44" r="5" fill="#8DB97C"/></g><g transform="translate(236 352)"><path d="M-14 0 V-16 L0 -28 L14 -16 V0Z" fill="#F3ECDF"/><rect x="-4" y="-10" width="8" height="10" fill="#A57DB7"/><circle cx="0" cy="-44" r="5" fill="#A57DB7"/></g><g transform="translate(505 330)"><path d="M-14 0 V-16 L0 -28 L14 -16 V0Z" fill="#F3ECDF"/><rect x="-4" y="-10" width="8" height="10" fill="#CF764E"/><circle cx="0" cy="-44" r="5" fill="#CF764E"/></g>
+</svg>
