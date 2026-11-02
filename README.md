@@ -1,8 +1,8 @@
 # Desde Mi Orilla · Sitio oficial
 
-Podcast intercultural de la **Universidad Bolivariana del Ecuador (UBE)**, postulado al **Desafío Naranja 2026** (Industrias Culturales: podcast y audio).
+Infraestructura de innovación social transmedia, postulada al **Desafío Naranja 2026** (Industrias Culturales: podcast y audio).
 
-Sitio construido en Streamlit, con identidad 100 % vectorial, Árbol de Preguntas Heredadas interactivo, video promocional y modo stand para pantalla táctil.
+Sitio construido en Streamlit, con identidad 100 % vectorial, Atarraya de Saberes interactiva, video promocional y modo stand para pantalla táctil.
 
 ---
 
@@ -14,7 +14,7 @@ desde-mi-orilla/
 ├── art.py                         # Ilustraciones vectoriales (orillas, olas, ramas)
 ├── requirements.txt
 ├── .streamlit/config.toml         # Tema y opciones del servidor
-├── components/arbol.html          # Árbol de Preguntas Heredadas (interactivo)
+├── components/atarraya.html       # Atarraya de Saberes (interactiva)
 ├── data/
 │   ├── preguntas.json             # Orillas y preguntas semilla (editable)
 │   └── preguntas_visitantes.json  # Preguntas que deja el público
@@ -84,7 +84,7 @@ Actívalo así:
 2. Ve a la pestaña **Actions**. Si GitHub pregunta, pulsa **I understand my workflows, go ahead and enable them**.
 3. Abre **Mantener activa la app (Streamlit)** → **Run workflow** para probarlo. Debe terminar en verde y mostrar «La app está activa».
 
-**Por qué una visita y no commits vacíos:** cada commit reinicia la app y borraría las preguntas que el público deja en el árbol durante el stand. Una visita con navegador no reinicia nada.
+**Por qué una visita y no commits vacíos:** cada commit reinicia la app y borraría los dilemas que el público teje en la atarraya durante el stand. Una visita con navegador no reinicia nada.
 
 **Dos cuidados:**
 - GitHub pausa los flujos programados si el repositorio pasa **60 días sin actividad**. Si recibes el correo de aviso, entra a Actions y pulsa **Enable workflow** (o haz cualquier commit).
@@ -97,7 +97,7 @@ Actívalo así:
 
 Abre: `https://desdemiorilla.streamlit.app/?stand=1`
 
-Muestra solo el Árbol de Preguntas a pantalla completa y el formulario «Deja una pregunta en la orilla». Pon el navegador en pantalla completa (F11).
+Muestra solo la Atarraya de Saberes a pantalla completa y el formulario «Teje tu dilema en la atarraya». Pon el navegador en pantalla completa (F11).
 
 > Las preguntas del público se guardan en el servidor mientras la app esté en marcha. Si la app se reinicia (por ejemplo, al subir un cambio a GitHub), vuelven a cero. **No subas cambios durante los días del concurso.**
 
@@ -113,7 +113,7 @@ Muestra solo el Árbol de Preguntas a pantalla completa y el formulario «Deja u
 | Video | reemplaza `assets/video/desde_mi_orilla_promo.mp4` (mismo nombre) |
 | Logos | `assets/brand/*.svg` |
 
-Cuando existan los audios reales de cada episodio, el Árbol puede reproducir el fragmento exacto: basta con añadir a cada pregunta un campo `"audio"` con la URL del fragmento (se deja preparado para la temporada piloto).
+Cuando existan los audios reales de cada episodio, la atarraya puede reproducir el fragmento exacto: basta con añadir a cada pregunta un campo `"audio"` con la URL del fragmento (se deja preparado para la temporada piloto).
 
 ---
 
@@ -126,4 +126,4 @@ streamlit run app.py
 
 ---
 
-Coordinación de Innovación y Transferencia del Conocimiento (CITC) · Vicerrectorado de Investigación y Vinculación Social · UBE
+Desde Mi Orilla · Miradas distintas, historias compartidas.

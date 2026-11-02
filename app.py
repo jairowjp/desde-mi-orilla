@@ -1,6 +1,6 @@
 """
 Desde Mi Orilla — sitio oficial del proyecto
-Universidad Bolivariana del Ecuador (UBE) · Desafío Naranja 2026
+Infraestructura de innovación social transmedia · Desafío Naranja 2026
 
 Ejecutar en local:  streamlit run app.py
 """
@@ -38,14 +38,12 @@ except Exception:
     APP_URL = "https://desdemiorilla.streamlit.app"
 
 LINKS = {
-    "ube_tv": "https://ube.edu.ec/UBE_Tv",
-    "youtube": "https://www.youtube.com/@ube_ec/podcasts",
     "instagram": "https://www.instagram.com/miorilla.podcast",
     "desafio": "https://desafionaranja.com/sobre.php",
 }
 
 st.set_page_config(
-    page_title="Desde Mi Orilla · Podcast intercultural de la UBE",
+    page_title="Desde Mi Orilla · Bienvenidos a la orilla del cambio",
     page_icon=str(BRAND / "favicon.png"),
     layout="wide",
     initial_sidebar_state="collapsed",
@@ -121,7 +119,7 @@ def qr_svg(url: str) -> str:
 def brand_zip() -> bytes:
     buf = io.BytesIO()
     with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as z:
-        for f in sorted(BRAND.glob("*.svg")):
+        for f in sorted(BRAND.glob("dmo_*.svg")):
             z.write(f, f"kit-marca-desde-mi-orilla/{f.name}")
     return buf.getvalue()
 
@@ -312,6 +310,21 @@ label p{{font-size:15px!important;color:var(--ink)!important;font-weight:500!imp
 .st-key-bg-kit{{background:var(--deep);padding:0 0 10px}}
 iframe{{display:block}}
 @media (max-width:900px){{.kitg{{grid-template-columns:1fr!important}}}}
+.hero .kicker{{font-family:var(--serif);font-style:italic;font-size:clamp(20px,1.9vw,26px);color:var(--clay);margin:0 0 18px}}
+.pillars{{display:grid;grid-template-columns:repeat(3,1fr);gap:36px;margin-top:56px;padding-top:28px;border-top:1px solid rgba(20,69,86,.15)}}
+.pillars b{{display:block;font-family:var(--serif);font-size:26px;color:var(--teal);margin-bottom:6px}}
+.pillars span{{font-size:16px;color:var(--muted);line-height:1.5}}
+.reach{{display:grid;grid-template-columns:1fr 1.05fr;gap:64px;align-items:center}}
+.tiers{{display:grid;gap:18px;margin-top:30px}}
+.tiers div{{border-left:4px solid var(--c);padding:4px 0 4px 18px}}
+.tiers b{{display:block;font-size:18px;color:var(--sand)}}
+.tiers span{{font-size:15.5px;color:rgba(243,236,223,.78)}}
+.flow{{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:56px;position:relative}}
+.flow > div{{position:relative;padding:28px 26px 0 0;border-top:6px solid var(--c)}}
+.flow em{{position:absolute;top:-24px;left:0;width:42px;height:42px;border-radius:50%;background:var(--c);color:#fff;font-style:normal;font:600 20px var(--serif);display:flex;align-items:center;justify-content:center}}
+.flow b{{display:block;font-family:var(--serif);font-size:24px;color:var(--teal);margin:14px 0 8px}}
+.flow span{{font-size:15.5px;color:var(--muted);line-height:1.55}}
+@media (max-width:900px){{.pillars,.reach{{grid-template-columns:1fr}} .flow{{grid-template-columns:1fr 1fr;row-gap:50px}}}}
 @media (prefers-reduced-motion:reduce){{*{{animation:none!important;transition:none!important}}}}
 </style>
 """)
@@ -322,27 +335,27 @@ orillas = data["orillas"]
 orilla_by_id = {o["id"]: o for o in orillas}
 
 # ---------------------------------------------------------------------------
-# Modo stand: pantalla táctil con el Árbol a pantalla completa
+# Atarraya de Saberes (componente) y formulario
 # ---------------------------------------------------------------------------
-def render_arbol(height: int) -> None:
+def render_atarraya(height: int) -> None:
     preguntas = data["preguntas"] + [
-        {**q, "autora": f"Pregunta dejada por {q['autora']}" if q.get("autora") else "Pregunta dejada por una visitante"}
-        for q in visitor_questions()[-40:]
+        {**q, "autora": f"Dejado por {q['autora']}" if q.get("autora") else "Dejado por una visitante"}
+        for q in visitor_questions()[-60:]
     ]
     payload = json.dumps({"orillas": orillas, "preguntas": preguntas}, ensure_ascii=False).replace("</", "<\\/")
-    tpl = (ROOT / "components" / "arbol.html").read_text(encoding="utf-8")
+    tpl = (ROOT / "components" / "atarraya.html").read_text(encoding="utf-8")
     page = tpl.replace("__FONTS__", fonts_css()).replace("__DATA__", payload).replace("__HEIGHT__", str(height))
-    if hasattr(st, "iframe"):          # Streamlit >= 1.5x
+    if hasattr(st, "iframe"):
         st.iframe(page, height=height)
-    else:                               # compatibilidad con versiones anteriores
+    else:
         components.html(page, height=height, scrolling=False)
 
 
 def question_form(key: str) -> None:
     with st.form(key, clear_on_submit=True):
         texto = st.text_area(
-            "Tu pregunta para la siguiente mujer que se siente frente al micrófono",
-            max_chars=200, height=110, placeholder="Escribe una pregunta que te gustaría heredar a otra mujer…",
+            "Tu dilema o pregunta para la siguiente mujer que se siente frente al micrófono",
+            max_chars=200, height=110, placeholder="Escribe la pregunta que te gustaría heredar a otra mujer…",
         )
         c1, c2 = st.columns([1, 1])
         with c1:
@@ -350,31 +363,33 @@ def question_form(key: str) -> None:
                                format_func=lambda i: orilla_by_id[i]["name"])
         with c2:
             autora = st.text_input("Tu nombre o país (opcional)", max_chars=40, placeholder="Ej.: Ana, Santo Domingo")
-        ok = st.form_submit_button("Dejar mi pregunta en el árbol")
+        ok = st.form_submit_button("Tejer mi dilema en la atarraya")
     if ok:
         clean = " ".join(texto.split())
         if len(clean) < 8:
-            st.warning("Escribe una pregunta de al menos 8 caracteres para que podamos sumarla al árbol.")
+            st.warning("Escribe al menos 8 caracteres para que podamos tejerlo en la atarraya.")
         else:
             if not clean.endswith("?"):
-                clean = clean + "?"
+                clean += "?"
             if not clean.startswith("¿"):
                 clean = "¿" + clean
             add_visitor_question(ori, clean, " ".join(autora.split()) or "una visitante")
-            st.success("Tu pregunta ya está en el árbol. Búscala como un punto claro en la rama de "
-                       f"{orilla_by_id[ori]['name']}.")
+            st.success(f"Tu dilema ya está tejido en la atarraya. Búscalo como un nudo claro en la orilla {orilla_by_id[ori]['name']}.")
             st.rerun()
 
 
+# ---------------------------------------------------------------------------
+# Modo stand: pantalla táctil con la atarraya a pantalla completa
+# ---------------------------------------------------------------------------
 if stand_mode:
     H(f"""<div style="background:{DEEP};padding:22px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px">
       <div style="width:220px">{logo('dmo_wordmark_blanco.svg', "Desde Mi Orilla")}</div>
-      <div style="color:{SAND};font:500 18px var(--sans)">Toca una pregunta. Escúchala. Deja la tuya.</div>
-      <div style="width:150px">{logo('ube_horizontal_blanco.svg', "Universidad Bolivariana del Ecuador")}</div></div>""")
+      <div style="color:{SAND};font:500 19px var(--sans)">Toca un nudo. Escucha su voz. Teje tu propio dilema.</div>
+      <div style="width:56px">{logo('dmo_isotipo_blanco.svg', "")}</div></div>""")
     with st.container(key="bg-arbol"):
-        render_arbol(640)
+        render_atarraya(660)
     with st.container(key="bg-form"):
-        H('<div class="wrap" style="padding-top:40px"><h2 class="t" style="color:var(--teal);font-size:40px;max-width:none">Deja una pregunta en la orilla</h2></div>')
+        H('<div class="wrap" style="padding-top:40px"><h2 class="t" style="color:var(--teal);font-size:40px;max-width:none">Teje tu dilema en la atarraya</h2></div>')
         with st.container(key="pad-form"):
             question_form("stand_form")
     st.stop()
@@ -386,8 +401,8 @@ H(f"""
 <div class="nav"><div class="wrap">
   <a href="#inicio" class="wm" aria-label="Desde Mi Orilla, inicio">{logo('dmo_wordmark.svg', "Desde Mi Orilla")}</a>
   <nav aria-label="Secciones">
-    <a href="#problema">Por qué</a><a href="#idea">La idea</a><a href="#orillas">Las orillas</a>
-    <a href="#arbol">Árbol de Preguntas</a><a href="#plataforma">Plataforma UBE</a><a href="#vision">Si ganamos</a>
+    <a href="#problema">Por qué</a><a href="#idea">La propuesta</a><a href="#atarraya">Atarraya</a>
+    <a href="#alcance">Alcance</a><a href="#economia">Economía creativa</a><a href="#vision">Si ganamos</a>
   </nav>
   <a class="btn p" href="#video">Ver el video</a>
 </div></div>
@@ -395,11 +410,12 @@ H(f"""
 <section class="hero" id="inicio"><div class="wrap">
   <div class="grid">
     <div>
+      <p class="kicker">Bienvenidos a la orilla del cambio.</p>
       <h1>Nadie conoce sus nombres. <span class="promise">Muy pronto, el mundo entero los va a pronunciar.</span></h1>
-      <p class="sub">Son médicas, maestras, ingenieras, artesanas, parteras y lideresas que sostienen al Ecuador en silencio. Desde Mi Orilla, el podcast intercultural de la UBE, les entrega el micrófono para que su voz cruce fronteras.</p>
+      <p class="sub">En Ecuador, las mujeres sostienen la cultura y el territorio, pero sus voces están fragmentadas en los medios. Desde Mi Orilla es una infraestructura de innovación social transmedia diseñada para registrar, interconectar y potenciar la memoria de las comunidades, sin intermediarios.</p>
       <div class="ctas">
         <a class="btn p" href="#video">Ver el video</a>
-        <a class="btn o" href="#arbol">Explorar el Árbol de Preguntas</a>
+        <a class="btn o" href="#atarraya">Explorar la Atarraya de Saberes</a>
       </div>
     </div>
     <div class="cover">
@@ -407,9 +423,10 @@ H(f"""
       <div class="logo">{logo('dmo_logo.svg', "Desde Mi Orilla")}</div>
     </div>
   </div>
-  <div class="backing">
-    <div class="ube">{logo('ube_horizontal.svg', "Universidad Bolivariana del Ecuador")}</div>
-    <div>Una iniciativa de estudiantes de la UBE, dirigida por la Coordinación de Innovación y Transferencia del Conocimiento (CITC), Vicerrectorado de Investigación y Vinculación Social. Postulada al Desafío Naranja 2026, vertical Industrias Culturales: podcast y audio.</div>
+  <div class="pillars">
+    <div><b>Registrar</b><span>la memoria oral de mujeres de todas las culturas del país</span></div>
+    <div><b>Interconectar</b><span>orillas distintas en una misma atarraya de saberes</span></div>
+    <div><b>Potenciar</b><span>sus voces, sus oficios y sus economías en nuevos mercados</span></div>
   </div>
 </div></section>
 {wave(SAND, DEEP)}
@@ -420,7 +437,7 @@ H(f"""
 # ---------------------------------------------------------------------------
 with st.container(key="bg-video"):
     H("""<section class="s" id="video" style="padding-bottom:40px;color:var(--sand)"><div class="wrap">
-      <h2 class="t">Ochenta segundos para conocerlas</h2>
+      <h2 class="t">Escúchalas desde su orilla</h2>
       <p class="lead" style="color:rgba(243,236,223,.78)">El video oficial del proyecto, preparado para el Desafío Naranja 2026 en Santo Domingo.</p>
     </div></section>""")
     with st.container(key="pad-video"):
@@ -434,15 +451,15 @@ with st.container(key="bg-video"):
 # ---------------------------------------------------------------------------
 H(f"""
 <section class="s dark" id="problema"><div class="wrap">
-  <h2 class="t">Existen. Trabajan. Transforman. Y casi nadie las escucha.</h2>
+  <h2 class="t">Sostienen la cultura y el territorio. Sus voces siguen fragmentadas.</h2>
   <div class="stat">
     <div class="n">51,3<small>%</small></div>
     <p class="lead" style="margin:0">de la población del Ecuador son mujeres. Sin embargo, su presencia como fuentes, protagonistas y productoras de conocimiento en los medios sigue siendo escasa, y las mujeres indígenas suelen aparecer en papeles secundarios.</p>
   </div>
   <div class="facts">
-    <p><strong>Voces fragmentadas</strong>Cuando aparecen, las historias de mujeres afroecuatorianas, indígenas, montubias, rurales y urbanas se cuentan por separado, o desde una sola mirada.</p>
-    <p><strong>Saberes que se pierden</strong>Sin espacios de encuentro, se rompen los puentes entre generaciones y culturas que podrían generar comprensión mutua.</p>
-    <p><strong>Jóvenes sin referentes</strong>Las personas de 16 a 30 años crecen con pocos relatos que reflejen la diversidad real de ser mujer en el país.</p>
+    <p><strong>Voces fragmentadas</strong>Las historias de mujeres afroecuatorianas, indígenas, montubias, rurales y urbanas se cuentan por separado, o desde una sola mirada.</p>
+    <p><strong>Memoria que se pierde</strong>Sin espacios de encuentro, se rompen los puentes entre generaciones y culturas, y con ellos los saberes de las comunidades.</p>
+    <p><strong>Territorios desconectados</strong>En muchas zonas rurales y aisladas no hay internet ni cobertura celular: esas voces no llegan, y la información tampoco.</p>
   </div>
   <p class="src">Fuentes: INEC (2023); Consejo de Comunicación (2019); Coronado-Otavalo et al. (2025), Historia y Comunicación Social, 30(2).</p>
 </div></section>
@@ -450,17 +467,15 @@ H(f"""
 """)
 
 # ---------------------------------------------------------------------------
-# La idea
+# La propuesta
 # ---------------------------------------------------------------------------
-
-
 H(f"""
 <section class="s" id="idea"><div class="wrap meet">
-  <div>{svg_img((IMG / "encuentro.svg").read_text(encoding="utf-8"), "Dos mujeres desde orillas distintas se encuentran en una misma pregunta")}</div>
+  <div>{svg_img((IMG / "encuentro.svg").read_text(encoding="utf-8"), "Dos mujeres desde orillas distintas se encuentran en un mismo dilema")}</div>
   <div>
-    <h2 class="t" style="color:var(--teal)">Dos mujeres. Dos orillas. Una misma pregunta.</h2>
-    <p class="lead">No es un podcast de entrevistas. Cada episodio reúne a dos mujeres que normalmente no se encontrarían —distintas por cultura, generación o territorio— y las une una pregunta. La diferencia no se suaviza: es el motor de la conversación.</p>
-    <div class="chain"><p><strong class="serif" style="font-size:21px;color:var(--teal)">La pregunta que heredamos.</strong><br>Cada invitada cierra su episodio dejando una pregunta para la siguiente. Así nace una cadena de voces que atraviesa toda la temporada y se convierte en el Árbol de Preguntas Heredadas.</p></div>
+    <h2 class="t" style="color:var(--teal)">Dos mujeres. Dos orillas. Un mismo dilema.</h2>
+    <p class="lead">Cada episodio reúne a dos mujeres que normalmente no se encontrarían —distintas por cultura, generación o territorio— y las une una pregunta. La diferencia no se suaviza: es el motor de la conversación. Sin intermediarios: ellas narran su propia realidad.</p>
+    <div class="chain"><p><strong class="serif" style="font-size:21px;color:var(--teal)">El dilema que heredamos.</strong><br>Cada participante cierra su episodio dejando un dilema a la siguiente. Así, voz tras voz, se teje la Atarraya de Saberes: un archivo vivo de la memoria de las comunidades.</p></div>
   </div>
 </div></section>
 """)
@@ -469,7 +484,7 @@ H(f"""
 # Las cinco orillas
 # ---------------------------------------------------------------------------
 rows = "".join(
-    f'<div class="or" style="--c:{o["color"] if o["id"] not in ("identidad",) else TEAL}"><div class="k">{o["ep"]}</div>'
+    f'<div class="or" style="--c:{o["color"] if o["id"] != "identidad" else TEAL}"><div class="k">{o["ep"]}</div>'
     f'<h3>{o["name"]}</h3><p>{html.escape(next(q["texto"] for q in data["preguntas"] if q["orilla"]==o["id"] and q["tipo"]=="central"))}</p></div>'
     for o in orillas
 )
@@ -485,56 +500,91 @@ H(f"""
   </div>
   <h3 style="font-size:30px;color:var(--teal);margin-top:90px">Así suena un episodio</h3>
   <div class="epbar" role="list" aria-label="Estructura de un episodio de 40 minutos">
-    <div role="listitem" style="flex:10;background:{TEAL}"><em>10′</em><b>El Encuentro</b><span>Cada invitada expone su orilla frente a la pregunta central.</span></div>
+    <div role="listitem" style="flex:10;background:{TEAL}"><em>10′</em><b>El Encuentro</b><span>Cada participante expone su orilla frente a la pregunta central.</span></div>
     <div role="listitem" style="flex:20;background:#2E6E7E"><em>20′</em><b>La Marea</b><span>Diálogo horizontal: de las historias personales a lo que tienen en común.</span></div>
-    <div role="listitem" style="flex:8;background:{CLAY}"><em>8′</em><b>La pregunta que heredamos</b><span>Responden la pregunta anterior y dejan una nueva.</span></div>
-    <div role="listitem" style="flex:4;background:{LAV}"><em>2′</em><b>Eco</b><span>Invitación al Árbol.</span></div>
+    <div role="listitem" style="flex:8;background:{CLAY}"><em>8′</em><b>El dilema que heredamos</b><span>Responden el dilema anterior y tejen uno nuevo.</span></div>
+    <div role="listitem" style="flex:4;background:{LAV}"><em>2′</em><b>Eco</b><span>Invitación a la atarraya.</span></div>
   </div>
 </div></section>
 {wave(SAND, DEEP)}
 """)
 
 # ---------------------------------------------------------------------------
-# Árbol de Preguntas Heredadas
+# Atarraya de Saberes
 # ---------------------------------------------------------------------------
 with st.container(key="bg-arbol"):
-    H("""<section class="s dark" id="arbol" style="padding-bottom:36px"><div class="wrap">
-      <h2 class="t">El Árbol de Preguntas Heredadas</h2>
-      <p class="lead">Nuestra pieza de tecnología y arte. Cada pregunta que una invitada deja al cierre de su episodio se convierte en un punto del árbol; al tocarlo se escucha su voz. Temporada tras temporada, el árbol crece y se vuelve un archivo vivo de memoria oral de mujeres del Ecuador.</p>
+    H("""<section class="s dark" id="atarraya" style="padding-bottom:36px"><div class="wrap">
+      <h2 class="t">La Atarraya de Saberes</h2>
+      <p class="lead">Nuestra metodología es un ecosistema vivo donde las participantes heredan dilemas tejiendo esta atarraya interactiva de saberes. Cada nudo es una voz; cada hilo, una herencia. Temporada tras temporada, la red se amplía y se convierte en la memoria viva de las comunidades.</p>
     </div></section>""")
-    render_arbol(600)
+    render_atarraya(640)
     H(f"<div style='height:30px;background:{DEEP}'></div>{wave(DEEP, SAND, flip=True)}")
 
 with st.container(key="bg-form"):
-    H("""<div class="wrap" style="padding:30px 28px 26px"><h2 class="t" style="color:var(--teal);font-size:clamp(30px,3.6vw,44px);max-width:22ch">Deja tu pregunta en la orilla</h2>
-    <p class="lead">Escribe la pregunta que le harías a una mujer de otra cultura u otra generación. Aparecerá en el árbol como un punto claro.</p></div>""")
+    H("""<div class="wrap" style="padding:30px 28px 26px"><h2 class="t" style="color:var(--teal);font-size:clamp(30px,3.6vw,44px);max-width:22ch">Teje tu dilema en la atarraya</h2>
+    <p class="lead">Escribe la pregunta que le harías a una mujer de otra cultura u otra generación. Aparecerá como un nudo claro en la red.</p></div>""")
     with st.container(key="pad-form"):
         question_form("main_form")
 
 # ---------------------------------------------------------------------------
-# Plataforma UBE: no empezamos desde cero
+# Alcance: incluso donde no hay internet
 # ---------------------------------------------------------------------------
 H(f"""
-{wave(SAND, TEAL)}
-<section class="s teal" id="plataforma"><div class="wrap">
+{wave(SAND, DEEP)}
+<section class="s dark" id="alcance"><div class="wrap reach">
+  <div>{svg_img((IMG / "alcance.svg").read_text(encoding="utf-8"), "Una antena de radio lleva la señal desde la ciudad hasta comunidades aisladas entre montañas y ríos")}</div>
+  <div>
+    <h2 class="t">Llegaremos incluso donde no hay internet</h2>
+    <p class="lead">Nos proponemos llegar a zonas sin conectividad, desplegando la información a través de redes de radioaficionados en zonas aisladas. Ninguna orilla queda fuera.</p>
+    <div class="tiers">
+      <div style="--c:{LAV}"><b>Digital</b><span>Videopodcast, plataformas de streaming y redes sociales.</span></div>
+      <div style="--c:{CLAY}"><b>Radio comunitaria</b><span>Cápsulas de 5 minutos en kichwa y shuar para emisoras locales.</span></div>
+      <div style="--c:#8DB97C"><b>Radioaficionados</b><span>Con Radio Club Guayaquil, transmisión en zonas sin cobertura celular.</span></div>
+    </div>
+  </div>
+</div></section>
+{wave(DEEP, TEAL, flip=True)}
+""")
+
+# ---------------------------------------------------------------------------
+# No empezamos desde cero: respaldo y red de aliados
+# ---------------------------------------------------------------------------
+H(f"""
+<section class="s teal" id="aliados"><div class="wrap">
   <h2 class="t">No empezamos desde cero</h2>
-  <p class="lead">Desde Mi Orilla arranca con una plataforma tecnológica y de medios que ya funciona. La UBE pone su infraestructura al servicio de estas voces desde el primer episodio, con costo fijo cero en estudio y personal base.</p>
+  <p class="lead">Esta iniciativa de economía creativa cuenta con el respaldo técnico y la infraestructura de la Universidad Bolivariana del Ecuador, y articula una red de aliados que ya está en marcha.</p>
   <div class="eco">
-    <div class="it"><h3>Sala de podcast UBE</h3><p>Estudio y equipos de grabación de la universidad, operativos desde el día uno.</p><span class="tag">Disponible</span></div>
-    <a href="{LINKS['ube_tv']}" target="_blank" rel="noopener"><h3>UBE TV</h3><p>El canal de la universidad donde se desarrollarán los programas piloto.</p><span class="tag">Canal de televisión</span></a>
-    <a href="{LINKS['youtube']}" target="_blank" rel="noopener"><h3>YouTube UBE Podcasts</h3><p>Videopodcast completo y clips para la audiencia de 16 a 30 años.</p><span class="tag">@ube_ec</span></a>
-    <a href="{LINKS['instagram']}" target="_blank" rel="noopener"><h3>Instagram del podcast</h3><p>Clips verticales subtitulados, adelantos y comunidad entre episodios.</p><span class="tag">@miorilla.podcast</span></a>
-    <div class="it"><h3>Radio y territorio</h3><p>Cápsulas de 5 minutos en kichwa y shuar para radios comunitarias, con La Batucada y su frecuencia radial.</p><span class="tag">Aliado radial</span></div>
-    <div class="it"><h3>Spotify y redes UBE</h3><p>Audio en plataformas de streaming, y difusión por las redes y canales de mensajería de la universidad.</p><span class="tag">Transmedia</span></div>
+    <div class="it"><h3>Minedec · SEIBE</h3><p>Secretaría de Educación Intercultural Bilingüe y Etnoeducación: validación metodológica y divulgación en unidades educativas.</p><span class="tag">Aval metodológico</span></div>
+    <div class="it"><h3>Consejo de Comunicación</h3><p>Capacitación, entrenamiento y certificación de competencias de las mujeres que se sumen a los nodos de comunicación.</p><span class="tag">Certificación</span></div>
+    <div class="it"><h3>Radio Club Guayaquil</h3><p>Red de radioaficionados para transmitir en zonas sin conectividad celular.</p><span class="tag">Zonas aisladas</span></div>
+    <div class="it"><h3>Colectivos y redes de mujeres</h3><p>Comunicación comunitaria, redes de mujeres y organizaciones sociales que ya trabajan en el territorio.</p><span class="tag">Territorio</span></div>
+    <div class="it"><h3>Nodos de comunicación</h3><p>Mujeres capacitadas y certificadas que registran y difunden la memoria de su propia comunidad.</p><span class="tag">Formación</span></div>
+    <div class="it"><h3>Empresa y cultura</h3><p>Empresas aliadas, moda intercultural, modistas y artistas que amplifican y compran lo que crean.</p><span class="tag">Mercados</span></div>
   </div>
   <div class="ethics">
-    <div style="--c:{SAND}"><b>Voces en primera persona</b><span>Ellas narran su propia realidad, sin intermediarios.</span></div>
+    <div style="--c:{SAND}"><b>Sin intermediarios</b><span>Ellas narran su propia realidad, en primera persona.</span></div>
     <div style="--c:{CLAY}"><b>Consentimiento informado</b><span>Alineado con el Convenio 169 de la OIT, con revisión del corte final y derecho a réplica.</span></div>
     <div style="--c:{LAV}"><b>Reciprocidad</b><span>Becas de conectividad, insumos y coautoría en investigaciones para sus colectivos.</span></div>
     <div style="--c:#8DB97C"><b>Accesibilidad</b><span>Transcripciones, subtítulos y una web que apunta a WCAG 2.2 AA.</span></div>
   </div>
 </div></section>
 {wave(TEAL, SAND, flip=True)}
+""")
+
+# ---------------------------------------------------------------------------
+# Economía creativa
+# ---------------------------------------------------------------------------
+H(f"""
+<section class="s" id="economia"><div class="wrap">
+  <h2 class="t" style="color:var(--teal);max-width:20ch">Cultura que se convierte en desarrollo</h2>
+  <p class="lead">Seremos un motor de fomento de servicios culturales: difundiremos y conectaremos los productos y servicios de mujeres y organizaciones sociales con nuevos mercados, para convertir la cultura en desarrollo laboral y económico de los territorios.</p>
+  <div class="flow">
+    <div style="--c:{TEAL}"><em>1</em><b>Voces y oficios</b><span>Mujeres y organizaciones sociales con productos, servicios y saberes.</span></div>
+    <div style="--c:{CLAY}"><em>2</em><b>Vitrina transmedia</b><span>Episodios, cápsulas y la atarraya muestran quiénes son y qué crean.</span></div>
+    <div style="--c:{LAV}"><em>3</em><b>Nuevos mercados</b><span>Empresas aliadas, ferias, compradores y audiencias de otros países.</span></div>
+    <div style="--c:#5E8F4E"><em>4</em><b>Desarrollo territorial</b><span>Empleo, ingresos y orgullo que se quedan en la comunidad.</span></div>
+  </div>
+</div></section>
 """)
 
 # ---------------------------------------------------------------------------
@@ -547,14 +597,14 @@ def bar(label, amount, total, color):
 
 TOTAL = 4125.50
 H(f"""
-<section class="s" id="vision"><div class="wrap">
+<section class="s" id="vision" style="padding-top:0"><div class="wrap">
   <h2 class="t" style="color:var(--teal);max-width:20ch">Si ganamos, estas voces tendrán su propia casa</h2>
-  <p class="lead">Hoy tenemos la plataforma de la UBE. Con el Desafío Naranja damos el salto: equipos para grabar en cualquier territorio, un equipo profesional que dirija el proyecto y una plataforma propia para la comunidad de mujeres que lo dan todo.</p>
+  <p class="lead">Hoy contamos con estudio, metodología, marca y el prototipo de la atarraya. Con el Desafío Naranja damos el salto: equipos para grabar en cualquier territorio, nodos de comunicación certificados y una plataforma propia para la comunidad de mujeres que lo dan todo.</p>
   <div class="road">
-    <div style="--c:{TEAL}"><div class="when">Hoy</div><h3>Plataforma UBE</h3><p>Sala de podcast, UBE TV, YouTube y redes. Marca, portadas, metodología y prototipo del Árbol listos.</p></div>
+    <div style="--c:{TEAL}"><div class="when">Hoy</div><h3>Base lista</h3><p>Estudio, equipo base, metodología, marca, portadas y prototipo funcional de la Atarraya de Saberes.</p></div>
     <div style="--c:#2E6E7E"><div class="when">Abril a julio 2027</div><h3>Temporada piloto</h3><p>Seis episodios, doce voces, cápsulas en kichwa y shuar e informe de impacto.</p></div>
-    <div style="--c:{CLAY}"><div class="when">Agosto 2027 a enero 2028</div><h3>Expansión nacional</h3><p>Grabaciones en la Sierra Centro y la Amazonía Sur con equipo portátil 4K.</p></div>
-    <div style="--c:{LAV}"><div class="when">Visión</div><h3>Plataforma propia</h3><p>Estudio, equipo profesional y temporadas hermanas con universidades de la red iberoamericana.</p></div>
+    <div style="--c:{CLAY}"><div class="when">Agosto 2027 a enero 2028</div><h3>Expansión nacional</h3><p>Sierra Centro y Amazonía Sur, radioaficionados en zonas aisladas y primeros nodos certificados.</p></div>
+    <div style="--c:{LAV}"><div class="when">Visión</div><h3>Plataforma propia</h3><p>Equipo profesional, red de nodos en todo el país y vitrina de economía creativa con alcance internacional.</p></div>
   </div>
   <div class="money">
     <div>
@@ -565,7 +615,7 @@ H(f"""
         {bar('Fase 2: expansión nacional (6 meses)', 1500, TOTAL, CLAY)}
         {bar('Equipamiento portátil reutilizable', 1625.50, TOTAL, LAV)}
       </div>
-      <p style="font-size:14px;color:var(--muted)">Estudio y personal base: US$ 0, cubiertos por la UBE. Montos referenciales sujetos a cotización.</p>
+      <p style="font-size:14px;color:var(--muted)">Estudio y personal base: US$ 0, aportados por el socio ancla. Montos referenciales sujetos a cotización.</p>
     </div>
     <div>
       <p style="margin:0 0 22px;color:var(--muted)">Metas de la temporada piloto</p>
@@ -583,17 +633,17 @@ H(f"""
 """)
 
 # ---------------------------------------------------------------------------
-# Aliados
+# Red de aliados
 # ---------------------------------------------------------------------------
-H(f"""
-<section class="s" id="aliados" style="padding-top:0"><div class="wrap">
+H("""
+<section class="s" id="red" style="padding-top:0"><div class="wrap">
   <h2 class="t" style="color:var(--teal);font-size:clamp(30px,3.6vw,44px)">Una red que ya está en marcha</h2>
   <p class="lead">Alianzas en gestión desde septiembre de 2026 y en proceso de formalización.</p>
   <div class="allies">
-    <div><h3>Universidad</h3><ul><li>UBE, socio ancla</li><li>CITC y sus programas RAÍCES, UBE Violeta y Maker Women STEM</li><li>CRAI de la UBE</li></ul></div>
-    <div><h3>Organizaciones de mujeres</h3><ul><li>Mujeres de Asfalto</li><li>Afroamérica XXI</li><li>FEMUAFRO</li><li>Palenque Libre por Derecho</li><li>Fundación Mintaimi</li><li>Warmi Imbabura</li><li>Red de Mujeres Rurales del Ecuador</li></ul></div>
-    <div><h3>Comunicación y radio</h3><ul><li>Consejo de Comunicación</li><li>La Batucada, frecuencia radial ganada en concurso de la Casa de la Cultura</li></ul></div>
-    <div><h3>Empresa y cultura</h3><ul><li>Clorox León, empresa aliada</li><li>Moda intercultural, modistas y artistas aliados</li></ul></div>
+    <div><h3>Universidad y entidades públicas</h3><ul><li>UBE, socio ancla</li><li>CITC y sus programas RAÍCES, UBE Violeta y Maker Women STEM</li><li>Incubadora de emprendimientos y CRAI de la UBE</li><li>Minedec, SEIBE y Consejo de Comunicación</li></ul></div>
+    <div><h3>Organizaciones de mujeres y colectivos sociales</h3><ul><li>Mujeres de Asfalto</li><li>Afroamérica XXI</li><li>FEMUAFRO</li><li>Palenque Libre por Derecho</li><li>Fundación Minkayni</li><li>Warmi Imbabura</li><li>Red de Mujeres Rurales del Ecuador</li></ul></div>
+    <div><h3>Comunicación y radio</h3><ul><li>Radio Club Guayaquil</li><li>Sin Paro, frecuencia radial ganadora del concurso de la Casa de la Cultura</li></ul></div>
+    <div><h3>Empresa y cultura</h3><ul><li>Clorox León, empresa aliada</li><li>Empresas de moda intercultural, modistas y artistas aliados</li></ul></div>
   </div>
 </div></section>
 """)
@@ -615,19 +665,17 @@ H(f"""
 <div class="foot" role="contentinfo"><div class="wrap">
   <div class="grid">
     <div>
-      <div style="width:230px">{logo('ube_horizontal_blanco.svg', "Universidad Bolivariana del Ecuador")}</div>
-      <p style="color:rgba(243,236,223,.75);max-width:46ch;margin-top:22px">Coordinación de Innovación y Transferencia del Conocimiento (CITC)<br>Vicerrectorado de Investigación y Vinculación Social<br>Universidad Bolivariana del Ecuador · Durán, Guayas</p>
+      <div style="width:260px">{logo('dmo_wordmark_blanco.svg', "Desde Mi Orilla")}</div>
+      <p style="color:rgba(243,236,223,.75);max-width:46ch;margin-top:22px">Infraestructura de innovación social transmedia.<br>Miradas distintas, historias compartidas.<br>Ecuador · 2026</p>
     </div>
     <div>
       <p style="margin:0 0 10px;font-weight:500">Síguenos</p>
       <p style="margin:0;line-height:2"><a href="{LINKS['instagram']}" target="_blank" rel="noopener">Instagram @miorilla.podcast</a><br>
-      <a href="{LINKS['youtube']}" target="_blank" rel="noopener">YouTube UBE Podcasts</a><br>
-      <a href="{LINKS['ube_tv']}" target="_blank" rel="noopener">UBE TV</a><br>
-      <a href="{LINKS['desafio']}" target="_blank" rel="noopener">Desafío Naranja</a></p>
+      <a href="{LINKS['desafio']}" target="_blank" rel="noopener">Desafío Naranja 2026</a></p>
     </div>
     <div><div class="qr">{svg_img(qr_svg(APP_URL), "Código QR del sitio")}</div>
       <p style="font-size:13px;color:rgba(243,236,223,.65);margin-top:10px">Escanea para abrir el sitio</p></div>
   </div>
-  <small>© 2026 Desde Mi Orilla. Universidad Bolivariana del Ecuador. Preguntas de muestra en el Árbol: ilustrativas hasta la grabación de la temporada piloto.</small>
+  <small>© 2026 Desde Mi Orilla. Dilemas de muestra en la atarraya: ilustrativos hasta la grabación de la temporada piloto.</small>
 </div></div>
 """)
