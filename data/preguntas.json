@@ -1,26 +1,141 @@
 {
   "orillas": [
-    {"id": "identidad", "name": "Identidad", "color": "#5FA3B3", "ep": "01"},
-    {"id": "territorio", "name": "Territorio", "color": "#CF764E", "ep": "02"},
-    {"id": "herencia", "name": "Herencia", "color": "#E0AD4F", "ep": "03"},
-    {"id": "oportunidades", "name": "Oportunidades", "color": "#A57DB7", "ep": "04"},
-    {"id": "futuro", "name": "Futuro", "color": "#8DB97C", "ep": "05"}
+    {
+      "id": "identidad",
+      "name": "Identidad",
+      "color": "#5FA3B3",
+      "ep": "01"
+    },
+    {
+      "id": "territorio",
+      "name": "Territorio",
+      "color": "#CF764E",
+      "ep": "02"
+    },
+    {
+      "id": "herencia",
+      "name": "Herencia",
+      "color": "#E0AD4F",
+      "ep": "03"
+    },
+    {
+      "id": "oportunidades",
+      "name": "Oportunidades",
+      "color": "#A57DB7",
+      "ep": "04"
+    },
+    {
+      "id": "futuro",
+      "name": "Futuro",
+      "color": "#8DB97C",
+      "ep": "05"
+    }
   ],
   "preguntas": [
-    {"orilla": "identidad", "tipo": "central", "ep": "01", "texto": "¿Quiénes somos cuando dejamos de lado las etiquetas?", "autora": "Pregunta central del episodio"},
-    {"orilla": "identidad", "tipo": "heredada", "ep": "01", "texto": "¿Qué parte de ti tuviste que esconder para que te tomaran en serio?", "autora": "Pregunta heredada de muestra"},
-    {"orilla": "identidad", "tipo": "heredada", "ep": "01", "texto": "¿En qué idioma sueñas cuando nadie te escucha?", "autora": "Pregunta heredada de muestra"},
-    {"orilla": "territorio", "tipo": "central", "ep": "02", "texto": "¿Qué significa crecer y construir una vida en determinado lugar?", "autora": "Pregunta central del episodio"},
-    {"orilla": "territorio", "tipo": "heredada", "ep": "02", "texto": "¿Qué lugar te enseñó lo que ninguna escuela pudo enseñarte?", "autora": "Pregunta heredada de muestra"},
-    {"orilla": "territorio", "tipo": "heredada", "ep": "02", "texto": "Si tu barrio pudiera hablar, ¿qué diría de ti?", "autora": "Pregunta heredada de muestra"},
-    {"orilla": "herencia", "tipo": "central", "ep": "03", "texto": "¿Qué recibimos de nuestras madres y abuelas?", "autora": "Pregunta central del episodio"},
-    {"orilla": "herencia", "tipo": "heredada", "ep": "03", "texto": "¿Qué saber de tu abuela te gustaría que no se perdiera nunca?", "autora": "Pregunta heredada de muestra"},
-    {"orilla": "herencia", "tipo": "heredada", "ep": "03", "texto": "¿Qué decidiste no heredar, y por qué?", "autora": "Pregunta heredada de muestra"},
-    {"orilla": "oportunidades", "tipo": "central", "ep": "04", "texto": "¿Cómo influye ser mujer y pertenecer a determinado contexto cultural?", "autora": "Pregunta central del episodio"},
-    {"orilla": "oportunidades", "tipo": "heredada", "ep": "04", "texto": "¿Quién te abrió una puerta que tú ahora puedes abrirle a otra?", "autora": "Pregunta heredada de muestra"},
-    {"orilla": "oportunidades", "tipo": "heredada", "ep": "04", "texto": "¿Cuánto talento conoces que nunca ha salido en un medio?", "autora": "Pregunta heredada de muestra"},
-    {"orilla": "futuro", "tipo": "central", "ep": "05", "texto": "¿Qué queremos transformar para las que vienen?", "autora": "Pregunta central del episodio"},
-    {"orilla": "futuro", "tipo": "heredada", "ep": "05", "texto": "¿Qué historia te gustaría que tu nieta escuche sobre ti?", "autora": "Pregunta heredada de muestra"},
-    {"orilla": "futuro", "tipo": "heredada", "ep": "05", "texto": "¿Qué pregunta le dejarías a una mujer que todavía no ha nacido?", "autora": "Pregunta heredada de muestra"}
+    {
+      "orilla": "identidad",
+      "tipo": "central",
+      "ep": "01",
+      "texto": "¿Quiénes somos cuando dejamos de lado las etiquetas?",
+      "autora": "Pregunta central del episodio"
+    },
+    {
+      "orilla": "identidad",
+      "tipo": "heredada",
+      "ep": "01",
+      "texto": "¿Qué parte de ti tuviste que esconder para que te tomaran en serio?",
+      "autora": "Dilema heredado de muestra"
+    },
+    {
+      "orilla": "identidad",
+      "tipo": "heredada",
+      "ep": "01",
+      "texto": "¿En qué idioma sueñas cuando nadie te escucha?",
+      "autora": "Dilema heredado de muestra"
+    },
+    {
+      "orilla": "territorio",
+      "tipo": "central",
+      "ep": "02",
+      "texto": "¿Qué significa crecer y construir una vida en determinado lugar?",
+      "autora": "Pregunta central del episodio"
+    },
+    {
+      "orilla": "territorio",
+      "tipo": "heredada",
+      "ep": "02",
+      "texto": "¿Qué lugar te enseñó lo que ninguna escuela pudo enseñarte?",
+      "autora": "Dilema heredado de muestra"
+    },
+    {
+      "orilla": "territorio",
+      "tipo": "heredada",
+      "ep": "02",
+      "texto": "Si tu barrio pudiera hablar, ¿qué diría de ti?",
+      "autora": "Dilema heredado de muestra"
+    },
+    {
+      "orilla": "herencia",
+      "tipo": "central",
+      "ep": "03",
+      "texto": "¿Qué recibimos de nuestras madres y abuelas?",
+      "autora": "Pregunta central del episodio"
+    },
+    {
+      "orilla": "herencia",
+      "tipo": "heredada",
+      "ep": "03",
+      "texto": "¿Qué saber de tu abuela te gustaría que no se perdiera nunca?",
+      "autora": "Dilema heredado de muestra"
+    },
+    {
+      "orilla": "herencia",
+      "tipo": "heredada",
+      "ep": "03",
+      "texto": "¿Qué decidiste no heredar, y por qué?",
+      "autora": "Dilema heredado de muestra"
+    },
+    {
+      "orilla": "oportunidades",
+      "tipo": "central",
+      "ep": "04",
+      "texto": "¿Cómo influye ser mujer y pertenecer a determinado contexto cultural?",
+      "autora": "Pregunta central del episodio"
+    },
+    {
+      "orilla": "oportunidades",
+      "tipo": "heredada",
+      "ep": "04",
+      "texto": "¿Quién te abrió una puerta que tú ahora puedes abrirle a otra?",
+      "autora": "Dilema heredado de muestra"
+    },
+    {
+      "orilla": "oportunidades",
+      "tipo": "heredada",
+      "ep": "04",
+      "texto": "¿Cuánto talento conoces que nunca ha salido en un medio?",
+      "autora": "Dilema heredado de muestra"
+    },
+    {
+      "orilla": "futuro",
+      "tipo": "central",
+      "ep": "05",
+      "texto": "¿Qué queremos transformar para las que vienen?",
+      "autora": "Pregunta central del episodio"
+    },
+    {
+      "orilla": "futuro",
+      "tipo": "heredada",
+      "ep": "05",
+      "texto": "¿Qué historia te gustaría que tu nieta escuche sobre ti?",
+      "autora": "Dilema heredado de muestra"
+    },
+    {
+      "orilla": "futuro",
+      "tipo": "heredada",
+      "ep": "05",
+      "texto": "¿Qué pregunta le dejarías a una mujer que todavía no ha nacido?",
+      "autora": "Dilema heredado de muestra"
+    }
   ]
 }

@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<style>__FONTS__</style>
+<style>
+  :root{--teal:#144556;--clay:#CF764E;--lav:#A57DB7;--sand:#F3ECDF;--paper:#FBF7F0;--deep:#0E3340;--ink:#173A45}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--deep);color:var(--sand);font-family:"DM Sans",system-ui,sans-serif;overflow:hidden}
+  .wrap{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(280px,1fr);height:__HEIGHT__px}
+  .stage{position:relative}
+  svg#tree{width:100%;height:100%;display:block}
+  .panel{padding:28px 30px;display:flex;flex-direction:column;gap:18px;border-left:1px solid rgba(243,236,223,.12);overflow:auto}
+  .legend{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{font-size:13px;padding:6px 11px;border-radius:999px;border:1px solid rgba(243,236,223,.25);background:transparent;color:var(--sand);cursor:pointer;font-family:inherit}
+  .chip[aria-pressed="true"]{background:var(--sand);color:var(--deep);border-color:var(--sand)}
+  .chip i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;vertical-align:0}
+  .card{background:rgba(243,236,223,.06);border-radius:18px;padding:22px 22px 20px;min-height:220px;display:flex;flex-direction:column;gap:12px}
+  .meta{font-size:13px;color:rgba(243,236,223,.7);display:flex;align-items:center;gap:8px}
+  .meta .dot{width:10px;height:10px;border-radius:50%}
+  .q{font-family:"Playfair Display",Georgia,serif;font-size:clamp(20px,2.2vw,27px);line-height:1.3;margin:0}
+  .who{font-size:14px;color:rgba(243,236,223,.75);margin:0}
+  .play{align-self:flex-start;display:inline-flex;align-items:center;gap:10px;margin-top:auto;background:var(--clay);color:#fff;border:0;border-radius:999px;padding:11px 18px 11px 14px;font:500 15px "DM Sans",sans-serif;cursor:pointer}
+  .play:focus-visible,.chip:focus-visible,.node:focus-visible{outline:3px solid var(--lav);outline-offset:3px}
+  .play svg{width:18px;height:18px}
+  .note{font-size:12.5px;line-height:1.5;color:rgba(243,236,223,.6);margin:0}
+  .hint{position:absolute;left:24px;bottom:18px;font-size:13px;color:rgba(243,236,223,.65)}
+  .node{cursor:pointer}
+  .node circle.halo{opacity:0;transition:opacity .25s}
+  .node:hover circle.halo,.node.active circle.halo{opacity:.35}
+  .node.dim{opacity:.18}
+  .branch.dim{opacity:.12}
+  @media (max-width:760px){.wrap{grid-template-columns:1fr;grid-template-rows:56% 44%}.panel{border-left:0;border-top:1px solid rgba(243,236,223,.12);padding:18px}}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="stage">
+    <svg id="tree" viewBox="0 -10 900 670" role="group" aria-label="Atarraya de Saberes. Cada nudo es un dilema heredado; actívalo para escucharlo."></svg>
+    <div class="hint">Toca un nudo de la atarraya para escuchar el dilema</div>
+  </div>
+  <div class="panel">
+    <div class="legend" id="legend" role="toolbar" aria-label="Filtrar por orilla"></div>
+    <div class="card" id="card" aria-live="polite">
+      <div class="meta"><span class="dot" id="cdot"></span><span id="cmeta"></span></div>
+      <p class="q" id="cq"></p>
+      <p class="who" id="cwho"></p>
+      <button class="play" id="play" type="button">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+        <span id="playlbl">Escuchar el dilema</span>
+      </button>
+    </div>
+    <p class="note">Prototipo funcional. Cada nudo es un dilema que una participante hereda a la siguiente; los hilos punteados muestran la cadena de herencia. En la temporada piloto, cada nudo reproducirá su voz real. Mientras tanto, se escucha con voz sintética.</p>
+  </div>
+</div>
+<script>
+const DATA = __DATA__;
+const ORILLAS = DATA.orillas;           // [{id,name,color}]
+const QS = DATA.preguntas;              // [{orilla, texto, autora, tipo, ep}]
+const svg = document.getElementById('tree');
+const NS = "http://www.w3.org/2000/svg";
+const el = (n, a={}, p=svg) => { const e=document.createElementNS(NS,n); for (const k in a) e.setAttribute(k,a[k]); p.appendChild(e); return e; };
+
+// ===== Atarraya de saberes: red circular vista desde arriba =====
+const C={x:450,y:322}, R=272, RINGS=5, SP=40, PER=SP/ORILLAS.length;
+const ang = i => (-90 + i*360/SP) * Math.PI/180;
+const P = (k,i) => { const r=R*k/RINGS, a=ang(i); return {x:C.x+Math.cos(a)*r, y:C.y+Math.sin(a)*r}; };
+const netG = el('g',{id:'net'});
+// sombra de agua
+el('circle',{cx:C.x,cy:C.y,r:R+26,fill:'#123F4D',opacity:.55},netG);
+el('circle',{cx:C.x,cy:C.y,r:R+26,fill:'none',stroke:'#F3ECDF','stroke-opacity':.12,'stroke-width':1.5,'stroke-dasharray':'3 9'},netG);
+const sectorEls={}; const drawables=[];
+ORILLAS.forEach((o,si)=>{
+  const g=el('g',{class:'branch','data-o':o.id},netG); sectorEls[o.id]=g;
+  // anillos con caída (malla que se comba hacia el centro)
+  for(let k=1;k<=RINGS;k++){
+    let d='';
+    for(let j=0;j<PER;j++){
+      const i=si*PER+j, p0=P(k,i), p1=P(k,i+1), am=(ang(i)+ang(i+1))/2, rc=R*k/RINGS*0.955;
+      d+=(j===0?`M${p0.x.toFixed(1)} ${p0.y.toFixed(1)}`:'')+` Q${(C.x+Math.cos(am)*rc).toFixed(1)} ${(C.y+Math.sin(am)*rc).toFixed(1)} ${p1.x.toFixed(1)} ${p1.y.toFixed(1)}`;
+    }
+    drawables.push(el('path',{d,stroke:o.color,'stroke-width':k===RINGS?3.2:1.8,fill:'none','stroke-opacity':k===RINGS?.95:.6},g));
+  }
+  // radios
+  for(let j=0;j<PER;j++){ const i=si*PER+j, p=P(RINGS,i);
+    drawables.push(el('path',{d:`M${C.x} ${C.y} L${p.x.toFixed(1)} ${p.y.toFixed(1)}`,stroke:'#F3ECDF','stroke-opacity':.22,'stroke-width':1.1},g));
+    el('circle',{cx:p.x,cy:p.y,r:3.4,fill:'#F3ECDF',opacity:.75,class:'plomo'},g); }
+  // nombre de la orilla
+  const am=ang(si*PER+PER/2), lx=C.x+Math.cos(am)*(R+48), ly=C.y+Math.sin(am)*(R+48)+5;
+  const lab=el('text',{x:lx,y:ly,'text-anchor':'middle',fill:'#F3ECDF','font-family':'DM Sans, sans-serif','font-size':16,'font-weight':500},g); lab.textContent=o.name;
+});
+// nudo central
+el('circle',{cx:C.x,cy:C.y,r:13,fill:'#F3ECDF'},netG);
+el('circle',{cx:C.x,cy:C.y,r:5,fill:'#0E3340'},netG);
+
+// hilos de herencia + nudos (preguntas / dilemas)
+const threadG=el('g',{},netG), nodeEls=[];
+const SLOTS=[[3,2],[3,6],[4,1],[4,4],[4,7],[5,3],[5,5],[3,4],[2,1],[2,6],[5,1],[5,7],[4,2],[4,6],[3,0],[5,0],[2,3],[3,7],[4,0],[4,3],[4,5],[5,2],[5,4],[5,6],[3,1],[3,3],[3,5],[2,0],[2,2],[2,5],[2,7]];
+const byO={}; QS.forEach((q,idx)=>{(byO[q.orilla] ||= []).push({...q,idx});});
+ORILLAS.forEach((o,si)=>{
+  const list=byO[o.id]||[]; let s=0; const chain=[];
+  list.sort((a,c)=>(c.tipo==='central')-(a.tipo==='central'));
+  list.forEach(q=>{
+    let pos; if(q.tipo==='central'){ pos=P(2,si*PER+4); } else { const sl=SLOTS[s++ % SLOTS.length]; pos=P(sl[0],si*PER+sl[1]); }
+    if(q.tipo!=='visitante') chain.push(pos);
+    const g=el('g',{class:'node',tabindex:0,role:'button','aria-label':`${o.name}: ${q.texto}`,'data-o':o.id});
+    const r=q.tipo==='central'?16:(q.tipo==='visitante'?7.5:11);
+    el('circle',{class:'halo',cx:pos.x,cy:pos.y,r:r+10,fill:o.color},g);
+    el('circle',{cx:pos.x,cy:pos.y,r,fill:q.tipo==='visitante'?'#F3ECDF':o.color,stroke:q.tipo==='visitante'?o.color:'#F3ECDF','stroke-width':q.tipo==='visitante'?3:2.5},g);
+    if(q.tipo==='central'){ const tx=el('text',{x:pos.x,y:pos.y+5,'text-anchor':'middle',fill:'#0E3340','font-family':'Playfair Display, serif','font-size':14,'font-weight':600},g); tx.textContent=o.ep; }
+    g.addEventListener('click',()=>select(q,g)); g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select(q,g);}});
+    g.dataset.idx=q.idx; nodeEls.push(g);
+  });
+  // hilo que une los dilemas heredados de la orilla (la cadena de herencia)
+  if(chain.length>1){ let d=`M${chain[0].x.toFixed(1)} ${chain[0].y.toFixed(1)}`; chain.slice(1).forEach(p=>d+=` L${p.x.toFixed(1)} ${p.y.toFixed(1)}`);
+    const th=el('path',{d,stroke:o.color,'stroke-width':2.4,fill:'none','stroke-dasharray':'2 6','stroke-linecap':'round',opacity:.9},threadG); th.dataset.o=o.id; drawables.push(th); }
+});
+
+// lanzamiento de la atarraya: la red se abre girando y los nudos aparecen
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(!reduce){
+  netG.style.transformOrigin=`${C.x}px ${C.y}px`;
+  netG.animate([{transform:'rotate(-40deg) scale(.25)',opacity:0},{transform:'rotate(0) scale(1)',opacity:1}],{duration:1500,easing:'cubic-bezier(.2,.7,.2,1)',fill:'both'});
+  nodeEls.forEach((g,i)=>{ g.style.transformBox='fill-box'; g.style.transformOrigin='center';
+    g.animate([{opacity:0,transform:'scale(.4)'},{opacity:1,transform:'scale(1)'}],{duration:450,delay:1200+i*40,fill:'both'}); });
+}
+
+// legend / filter
+const legend = document.getElementById('legend'); let filter=null;
+const all = document.createElement('button'); all.className='chip'; all.textContent='Todas'; all.setAttribute('aria-pressed','true'); legend.appendChild(all);
+all.onclick=()=>setFilter(null);
+ORILLAS.forEach(o=>{ const c=document.createElement('button'); c.className='chip'; c.setAttribute('aria-pressed','false'); c.dataset.o=o.id;
+  c.innerHTML=`<i style="background:${o.color}"></i>`; c.appendChild(document.createTextNode(o.name)); c.onclick=()=>setFilter(o.id); legend.appendChild(c); });
+function setFilter(id){ filter=id;
+  legend.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed', String((c.dataset.o||null)===id)));
+  document.querySelectorAll('.branch').forEach(b=>b.classList.toggle('dim', !!id && b.dataset.o!==id));
+  threadG.querySelectorAll('path').forEach(p=>p.classList.toggle('dim', !!id && p.dataset.o!==id));
+  nodeEls.forEach(g=>g.classList.toggle('dim', !!id && g.dataset.o!==id));
+}
+
+// card + voice
+const card={dot:cdot,meta:cmeta,q:cq,who:cwho}; let current=null;
+function select(q,g){
+  current=q; nodeEls.forEach(n=>n.classList.remove('active')); if(g) g.classList.add('active');
+  const o=ORILLAS.find(x=>x.id===q.orilla);
+  card.dot.style.background=o.color;
+  card.meta.textContent = `${o.name}${q.ep?'  ·  Episodio '+q.ep:''}`;
+  card.q.textContent = q.texto;
+  card.who.textContent = q.autora;
+  speechSynthesis.cancel(); if(audio) audio.pause(); playlbl.textContent='Escuchar el dilema';
+}
+function pickVoice(){ const v=speechSynthesis.getVoices(); return v.find(x=>/es[-_](EC|CO|MX|US|419)/i.test(x.lang)) || v.find(x=>/^es/i.test(x.lang)); }
+let audio=null;
+play.onclick=()=>{
+  if(!current) return;
+  if(current.audio){                       // fragmento real del episodio
+    if(audio && !audio.paused){ audio.pause(); playlbl.textContent='Escuchar el dilema'; return; }
+    audio=new Audio(current.audio); audio.onended=()=>playlbl.textContent='Escuchar el dilema';
+    audio.play(); playlbl.textContent='Detener'; return;
+  }
+  if(speechSynthesis.speaking){ speechSynthesis.cancel(); playlbl.textContent='Escuchar el dilema'; return; }
+  const u=new SpeechSynthesisUtterance(current.texto); const v=pickVoice(); if(v) u.voice=v; u.lang=v?v.lang:'es-ES'; u.rate=.92; u.pitch=1.05;
+  u.onend=()=>playlbl.textContent='Escuchar el dilema';
+  playlbl.textContent='Detener'; speechSynthesis.speak(u);
+};
+// initial selection
+const first = QS.findIndex(q=>q.tipo==='heredada');
+select(QS[first<0?0:first], nodeEls.find(g=>+g.dataset.idx===(first<0?0:first)));
+</script>
+</body>
+</html>

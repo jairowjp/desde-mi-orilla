@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<style>
+@font-face{font-family:'PF';src:url(fonts/PlayfairDisplay.woff2) format('woff2');font-weight:400 900}
+@font-face{font-family:'PF';src:url(fonts/PlayfairDisplay-Italic.woff2) format('woff2');font-weight:400 900;font-style:italic}
+@font-face{font-family:'DM';src:url(fonts/DMSans.woff2) format('woff2');font-weight:100 1000}
+:root{--teal:#144556;--clay:#CF764E;--lav:#A57DB7;--sand:#F3ECDF;--deep:#0E3340;--muted:#4D6A73}
+*{box-sizing:border-box;margin:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:var(--deep);font-family:DM,sans-serif}
+.sc{position:absolute;inset:0;opacity:0;overflow:hidden}
+.c{position:absolute;left:0;right:0;text-align:center}
+.serif{font-family:PF,serif}
+.big{font-family:PF,serif;font-weight:600;letter-spacing:-.015em}
+.it{font-style:italic}
+img{display:block}
+svg{position:absolute;inset:0}
+</style></head>
+<body>
+<!-- S0 bienvenida -->
+<div class="sc" id="s0" style="background:var(--deep)">
+  <svg width="1920" height="1080" viewBox="0 0 1920 1080">
+    <path class="dw" d="M-40 790 C 300 670 560 890 960 790 S 1600 650 1960 750" stroke="#A57DB7" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path class="dw" d="M-40 830 C 320 730 600 930 980 830 S 1620 710 1960 800" stroke="#CF764E" stroke-width="2" fill="none" stroke-linecap="round" opacity=".7"/>
+  </svg>
+  <img id="iso0" src="brand/dmo_isotipo_blanco.svg" style="position:absolute;left:900px;top:250px;width:120px">
+  <div class="c big it" id="t0" style="top:430px;font-size:104px;color:var(--sand);font-weight:500">Bienvenidos a la orilla del cambio.</div>
+</div>
+<!-- S1 -->
+<div class="sc" id="s1" style="background:var(--deep)">
+  <div class="c big" id="t1" style="top:370px;font-size:92px;color:var(--sand);line-height:1.12">En Ecuador hay mujeres<br>que lo dan todo.</div>
+</div>
+<!-- S2 words -->
+<div class="sc" id="s2" style="background:var(--deep)">
+  <div class="c big" id="word" style="top:370px;font-size:150px"></div>
+  <div class="c" id="wsub" style="top:610px;font-size:38px;color:rgba(243,236,223,.75)"></div>
+</div>
+<!-- S3 -->
+<div class="sc" id="s3" style="background:var(--deep)">
+  <div class="c big" id="t3" style="top:400px;font-size:112px;color:var(--sand)">…y casi nadie conoce sus nombres.</div>
+</div>
+<!-- S4 stat -->
+<div class="sc" id="s4" style="background:var(--deep)">
+  <div class="big" id="num" style="position:absolute;left:220px;top:170px;font-size:330px;color:var(--clay);line-height:1">0</div>
+  <div id="n1" style="position:absolute;left:230px;top:560px;font-size:50px;color:var(--sand)">de la población del Ecuador son mujeres.</div>
+  <div id="n2" class="serif it" style="position:absolute;left:230px;top:680px;font-size:50px;color:#C8B7D6;max-width:1500px;line-height:1.3">Pero sus voces casi nunca llegan a los medios.</div>
+  <div id="n3" style="position:absolute;left:230px;bottom:70px;font-size:22px;color:rgba(243,236,223,.5)">Fuentes: INEC (2023); Consejo de Comunicación (2019)</div>
+</div>
+<!-- S5 logo -->
+<div class="sc" id="s5" style="background:var(--sand)">
+  <svg width="1920" height="1080" viewBox="0 0 1920 1080">
+    <circle id="sun" cx="1700" cy="120" r="230" fill="#A57DB7"/>
+    <g id="shL"><path d="M-60 700 C 160 640 380 700 520 780 C 680 870 700 980 880 1040 C 930 1060 960 1080 960 1080 L-60 1080Z" fill="#144556"/>
+      <path d="M-60 760 C 160 720 360 760 480 830 C 620 910 640 1000 780 1060" stroke="#F3ECDF" stroke-width="4" fill="none" opacity=".8"/>
+      <path d="M-60 900 C 60 900 140 960 190 1080 L-60 1080Z" fill="#A57DB7"/></g>
+    <g id="shR"><path d="M1980 420 C 1800 470 1660 600 1640 720 C 1620 840 1480 900 1360 950 C 1240 1000 1200 1050 1210 1080 L1980 1080Z" fill="#CF764E"/>
+      <path d="M1980 520 C 1840 570 1740 660 1720 770 C 1700 860 1600 930 1480 980" stroke="#F3ECDF" stroke-width="4" fill="none" opacity=".8"/>
+      <path d="M1980 760 C 1860 780 1820 860 1850 940 C 1870 990 1980 1010 1980 1010Z" fill="#A57DB7"/></g>
+  </svg>
+  <div id="logoW" style="position:absolute;left:510px;top:170px;width:900px;overflow:hidden"><img src="brand/dmo_logo.svg" style="width:900px"></div>
+</div>
+<!-- S6 definición -->
+<div class="sc" id="s6" style="background:var(--sand)">
+  <div id="d0" style="position:absolute;left:180px;top:150px;font-size:36px;color:var(--muted)">Desde Mi Orilla es</div>
+  <div class="big" id="d1" style="position:absolute;left:180px;top:210px;font-size:92px;color:var(--teal);line-height:1.05;max-width:1500px">una infraestructura de innovación social transmedia</div>
+  <div id="d3" style="position:absolute;left:180px;right:180px;top:560px;display:grid;grid-template-columns:repeat(3,1fr);gap:50px"></div>
+  <div class="serif it" id="d4" style="position:absolute;left:180px;top:880px;font-size:46px;color:var(--clay)">…sin intermediarios.</div>
+</div>
+<!-- S7 dos mujeres -->
+<div class="sc" id="s7" style="background:#2A5F6E">
+  <div id="pL" style="position:absolute;left:0;top:0;bottom:0;width:760px;background:var(--teal)"></div>
+  <div id="pR" style="position:absolute;right:0;top:0;bottom:0;width:760px;background:var(--clay)"></div>
+  <svg width="1920" height="1080" viewBox="0 0 1920 1080">
+    <path id="arc" d="M560 610 C 760 420 1160 420 1360 610" stroke="#A57DB7" stroke-width="8" fill="none" stroke-linecap="round"/>
+    <g id="cL"><circle cx="440" cy="610" r="120" fill="#F3ECDF"/><text x="440" y="632" text-anchor="middle" font-family="PF" font-weight="600" font-size="64" fill="#144556">Ella</text></g>
+    <g id="cR"><circle cx="1480" cy="610" r="120" fill="#F3ECDF"/><text x="1480" y="632" text-anchor="middle" font-family="PF" font-weight="600" font-size="64" fill="#CF764E">Ella</text></g>
+    <g id="qm"><circle cx="960" cy="470" r="78" fill="#A57DB7"/><text x="960" y="505" text-anchor="middle" font-family="PF" font-weight="700" font-size="100" fill="#fff">?</text></g>
+  </svg>
+  <div class="c big" id="t7" style="top:110px;font-size:84px;color:var(--sand)">Dos mujeres. Dos orillas.</div>
+  <div class="c big" id="t7b" style="top:800px;font-size:84px;color:var(--sand)">Una misma pregunta.</div>
+</div>
+<!-- S8 cinco orillas -->
+<div class="sc" id="s8" style="background:var(--sand)">
+  <div style="position:absolute;left:180px;top:110px;font-size:36px;color:var(--muted)">Temporada piloto: cinco orillas</div>
+  <div id="orList" style="position:absolute;left:180px;top:200px;right:180px"></div>
+</div>
+<!-- S9 atarraya -->
+<div class="sc" id="s9" style="background:var(--deep)">
+  <svg id="net" width="1920" height="1080" viewBox="0 0 1920 1080"></svg>
+  <div class="big" id="t9" style="position:absolute;left:140px;top:170px;font-size:84px;color:var(--sand);line-height:1.05">La Atarraya<br>de Saberes</div>
+  <div id="t9b" style="position:absolute;left:140px;top:400px;font-size:34px;color:rgba(243,236,223,.8);max-width:600px;line-height:1.45">Un ecosistema vivo: cada participante hereda un dilema a la siguiente, y juntas tejen la red.</div>
+</div>
+<!-- S10 radio -->
+<div class="sc" id="s10" style="background:var(--deep)">
+  <svg width="1920" height="1080" viewBox="0 0 1920 1080">
+    <circle cx="820" cy="170" r="90" fill="#A57DB7" opacity=".9"/>
+    <path d="M0 760 L360 470 L560 640 L860 360 L1120 600 L1340 470 L1920 720 V1080 H0Z" fill="#1E5A6B"/>
+    <path d="M860 360 L930 440 L885 430 L845 475 L810 420Z" fill="#F3ECDF" opacity=".85"/>
+    <path d="M0 860 C 360 780 600 900 900 830 C 1200 760 1420 860 1920 800 V1080 H0Z" fill="#144556"/>
+    <path d="M0 980 C 330 900 630 1000 960 940 C 1260 880 1480 960 1920 930" stroke="#A57DB7" stroke-width="22" fill="none" stroke-linecap="round"/>
+    <g stroke="#F3ECDF" stroke-width="7" stroke-linecap="round" fill="none"><path d="M300 330 L230 840 M300 330 L370 840 M250 680 L350 680 M262 560 L338 560 M276 450 L324 450 M240 760 L360 760 M250 680 L338 560 M350 680 L262 560 M240 760 L350 680 M360 760 L250 680"/></g>
+    <circle cx="300" cy="322" r="18" fill="#CF764E"/>
+    <g id="waves"></g>
+    <g id="homes"></g>
+  </svg>
+  <div class="big" id="t10" style="position:absolute;right:140px;top:120px;font-size:80px;color:var(--sand);text-align:right;line-height:1.06">Incluso donde<br>no hay internet</div>
+  <div id="t10b" style="position:absolute;right:140px;top:330px;font-size:34px;color:rgba(243,236,223,.8);text-align:right">Redes de radioaficionados en zonas aisladas</div>
+</div>
+<!-- S11 no empezamos desde cero -->
+<div class="sc" id="s11" style="background:var(--teal)">
+  <div class="big" id="t11" style="position:absolute;left:150px;top:110px;font-size:96px;color:var(--sand)">No empezamos desde cero.</div>
+  <div id="t11b" style="position:absolute;left:150px;top:250px;font-size:36px;color:rgba(243,236,223,.85);max-width:1500px;line-height:1.4">Respaldo técnico e infraestructura de la Universidad Bolivariana del Ecuador, y una red de aliados:</div>
+  <div id="al" style="position:absolute;left:150px;right:150px;top:450px;display:grid;grid-template-columns:repeat(2,1fr);gap:40px 70px"></div>
+</div>
+<!-- S12 economía creativa -->
+<div class="sc" id="s12" style="background:var(--sand)">
+  <div class="big" id="t12" style="position:absolute;left:150px;top:120px;font-size:90px;color:var(--teal);line-height:1.05">Cultura que se convierte<br>en desarrollo</div>
+  <svg width="1920" height="1080" viewBox="0 0 1920 1080"><path id="fl" d="M220 560 H1700" stroke="#144556" stroke-width="6" stroke-linecap="round" opacity=".25"/><path id="fl2" d="M220 560 H1700" stroke="#CF764E" stroke-width="6" stroke-linecap="round"/></svg>
+  <div id="flow" style="position:absolute;left:150px;right:150px;top:520px;display:grid;grid-template-columns:repeat(4,1fr);gap:40px"></div>
+</div>
+<!-- S13 si ganamos -->
+<div class="sc" id="s13" style="background:var(--sand)">
+  <div class="big" id="t13" style="position:absolute;left:150px;top:140px;font-size:96px;color:var(--teal);line-height:1.05">Si ganamos,<br>ellas tendrán su propia casa.</div>
+  <div id="win" style="position:absolute;left:150px;right:150px;top:520px;display:grid;grid-template-columns:repeat(3,1fr);gap:50px"></div>
+</div>
+<!-- S14 cierre -->
+<div class="sc" id="s14" style="background:var(--deep)">
+  <img id="endlogo" src="brand/dmo_logo_blanco.svg" style="position:absolute;left:610px;top:100px;width:700px">
+  <div class="c big" id="t14" style="top:600px;font-size:66px;color:var(--sand)">Sus historias merecen ser escuchadas.</div>
+  <div class="c serif it" id="t14b" style="top:705px;font-size:46px;color:#E3A584">Desde mi orilla, hacia el mundo.</div>
+  <div id="f14" style="position:absolute;left:150px;right:150px;bottom:70px;display:flex;justify-content:space-between;color:rgba(243,236,223,.8);font-size:28px">
+    <div>Desafío Naranja 2026<br><span style="font-size:24px;color:rgba(243,236,223,.6)">Santo Domingo, República Dominicana</span></div>
+    <div style="text-align:right">@miorilla.podcast<br><span style="font-size:24px;color:rgba(243,236,223,.6)">Podcast · Radio · Transmedia</span></div>
+  </div>
+</div>
+<div id="fade" style="position:absolute;inset:0;background:#000;opacity:0"></div>
+
+<script>
+// ---------- línea de tiempo (duraciones en segundos; se ajustan a la locución) ----------
+const DUR = window.DUR || {s0:7,s1:6.5,s2:12.2,s3:7,s4:12,s5:7,s6:12,s7:11,s8:14,s9:14,s10:11,s11:25,s12:15,s13:13,s14:11};
+const ORDER=['s0','s1','s2','s3','s4','s5','s6','s7','s8','s9','s10','s11','s12','s13','s14'];
+const START={}; let acc=0; ORDER.forEach(k=>{START[k]=acc; acc+=DUR[k];}); const TOTAL=acc;
+window.TIMELINE={START,DUR,TOTAL};
+
+const $=id=>document.getElementById(id);
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const ease=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const eo=x=>1-Math.pow(1-x,3);
+const P=(u,a,b)=>cl((u-a)/(b-a));
+function rise(el,u,a,d=.9,dy=40){const p=eo(P(u,a,a+d));el.style.opacity=p;el.style.transform=`translateY(${(1-p)*dy}px)`;}
+function draw(p,prog){const L=p.getTotalLength();p.style.strokeDasharray=L;p.style.strokeDashoffset=L*(1-prog);}
+
+// ---------- contenido ----------
+const WORDS=[['Profesionales','que sostienen al país','#CF764E'],['Sabias','que guardan nuestra memoria','#C8B7D6'],['Lideresas','que transforman sus comunidades','#E0AD4F'],['Creadoras','que lo hacen todo con sus manos','#8DB97C']];
+const OR=[['01','Identidad','¿Quiénes somos cuando dejamos de lado las etiquetas?','#144556'],['02','Territorio','¿Qué significa crecer y construir una vida en un lugar?','#CF764E'],['03','Herencia','¿Qué recibimos de nuestras madres y abuelas?','#C98F2A'],['04','Oportunidades','¿Cómo influye ser mujer en un contexto cultural?','#8E62A3'],['05','Futuro','¿Qué queremos transformar para las que vienen?','#5E8F4E']];
+OR.forEach(o=>{const d=document.createElement('div');d.style.cssText='display:grid;grid-template-columns:120px 440px 1fr;align-items:baseline;padding:30px 0;border-top:2px solid rgba(20,69,86,.15)';d.innerHTML=`<span class="serif" style="font-size:64px;color:${o[3]}">${o[0]}</span><span class="big" style="font-size:52px;color:#144556">${o[1]}</span><span class="serif it" style="font-size:38px;color:#173A45">${o[2]}</span>`;$('orList').appendChild(d);});
+[['Registrar','la memoria oral de las comunidades','#144556'],['Interconectar','orillas, culturas y generaciones','#CF764E'],['Potenciar','sus voces y sus economías','#A57DB7']].forEach(w=>{const d=document.createElement('div');d.style.cssText=`border-top:8px solid ${w[2]};padding-top:24px`;d.innerHTML=`<div class="big" style="font-size:58px;color:#144556">${w[0]}</div><div style="font-size:32px;color:#4D6A73;margin-top:10px">${w[1]}</div>`;$('d3').appendChild(d);});
+[['Minedec · SEIBE','Validación metodológica y divulgación en unidades educativas'],['Consejo de Comunicación','Capacitación y certificación de competencias'],['Radio Club Guayaquil','Transmisión en zonas sin conectividad celular'],['Colectivos y redes de mujeres','Comunicación comunitaria y organizaciones sociales']].forEach(a=>{const d=document.createElement('div');d.style.cssText='border-top:3px solid rgba(243,236,223,.4);padding-top:22px';d.innerHTML=`<div class="big" style="font-size:50px;color:#F3ECDF">${a[0]}</div><div style="font-size:30px;color:rgba(243,236,223,.78);margin-top:8px">${a[1]}</div>`;$('al').appendChild(d);});
+[['Voces y oficios','Mujeres y organizaciones con productos, servicios y saberes','#144556'],['Vitrina transmedia','Episodios, cápsulas y la atarraya muestran lo que crean','#CF764E'],['Nuevos mercados','Empresas aliadas, ferias y audiencias de otros países','#A57DB7'],['Desarrollo','Empleo e ingresos que se quedan en el territorio','#5E8F4E']].forEach((f,i)=>{const d=document.createElement('div');d.innerHTML=`<div style="width:84px;height:84px;border-radius:50%;background:${f[2]};color:#fff;display:flex;align-items:center;justify-content:center" class="big"><span style="font-size:44px">${i+1}</span></div><div class="big" style="font-size:46px;color:#144556;margin-top:30px">${f[0]}</div><div style="font-size:29px;color:#4D6A73;margin-top:10px;line-height:1.4">${f[1]}</div>`;$('flow').appendChild(d);});
+[['Equipos','para grabar en cualquier territorio del Ecuador, en 4K y alta fidelidad.','#144556'],['Un equipo profesional','que las acompañe y certifique nuevos nodos de comunicación.','#CF764E'],['Una plataforma propia','para la comunidad de mujeres que lo dan todo.','#A57DB7']].forEach(w=>{const d=document.createElement('div');d.style.cssText=`border-top:8px solid ${w[2]};padding-top:28px`;d.innerHTML=`<div class="big" style="font-size:54px;color:#144556;line-height:1.1">${w[0]}</div><div style="font-size:32px;color:#4D6A73;margin-top:14px;line-height:1.4">${w[1]}</div>`;$('win').appendChild(d);});
+
+// atarraya (video)
+const NS="http://www.w3.org/2000/svg", net=$('net');
+const mk=(n,a,p=net)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);p.appendChild(e);return e;};
+const NC={x:1290,y:560},NR=400,RG=5,SPN=40,COL=['#5FA3B3','#CF764E','#E0AD4F','#A57DB7','#8DB97C'];
+const an=i=>(-90+i*360/SPN)*Math.PI/180, NP=(k,i)=>({x:NC.x+Math.cos(an(i))*NR*k/RG,y:NC.y+Math.sin(an(i))*NR*k/RG});
+const netG=mk('g',{}); mk('circle',{cx:NC.x,cy:NC.y,r:NR+34,fill:'#123F4D'},netG);
+const rings=[],spokes=[],knots=[],threads=[];
+COL.forEach((c,si)=>{for(let k=1;k<=RG;k++){let d='';for(let j=0;j<8;j++){const i=si*8+j,p0=NP(k,i),p1=NP(k,i+1),am=(an(i)+an(i+1))/2,rc=NR*k/RG*.955;d+=(j?'':`M${p0.x} ${p0.y}`)+` Q${NC.x+Math.cos(am)*rc} ${NC.y+Math.sin(am)*rc} ${p1.x} ${p1.y}`;}rings.push({p:mk('path',{d,stroke:c,'stroke-width':k===RG?5:2.6,fill:'none','stroke-opacity':k===RG?1:.65},netG),k});}
+ for(let j=0;j<8;j++){const p=NP(RG,si*8+j);spokes.push(mk('path',{d:`M${NC.x} ${NC.y} L${p.x} ${p.y}`,stroke:'#F3ECDF','stroke-opacity':.25,'stroke-width':1.6},netG));}
+ const sl=[[2,4],[3,2],[4,6],[5,3],[4,1]].map(([k,j])=>NP(k,si*8+j)); let d=`M${sl[0].x} ${sl[0].y}`; sl.slice(1).forEach(p=>d+=` L${p.x} ${p.y}`);
+ threads.push(mk('path',{d,stroke:c,'stroke-width':3.5,fill:'none','stroke-dasharray':'3 9','stroke-linecap':'round'},netG));
+ sl.forEach((p,n)=>knots.push(mk('circle',{cx:p.x,cy:p.y,r:n?15:24,fill:c,stroke:'#F3ECDF','stroke-width':3.5},netG)));});
+mk('circle',{cx:NC.x,cy:NC.y,r:18,fill:'#F3ECDF'},netG);
+
+// radio: ondas y casas
+const wv=$('waves'); const homes=$('homes'); const W=[];
+for(let i=0;i<4;i++){const e=document.createElementNS(NS,'path');e.setAttribute('fill','none');e.setAttribute('stroke','#CF764E');e.setAttribute('stroke-linecap','round');wv.appendChild(e);W.push(e);}
+const HP=[[1250,640,'#CF764E'],[1530,700,'#8DB97C'],[980,790,'#A57DB7'],[1760,760,'#E0AD4F']], HE=[], LN=[];
+HP.forEach(([x,y,c])=>{const g=document.createElementNS(NS,'g');g.setAttribute('transform',`translate(${x} ${y})`);g.innerHTML=`<path d="M-30 0 V-34 L0 -60 L30 -34 V0Z" fill="#F3ECDF"/><rect x="-9" y="-22" width="18" height="22" fill="${c}"/><circle cx="0" cy="-92" r="11" fill="${c}"/>`;homes.appendChild(g);HE.push(g);
+ const l=document.createElementNS(NS,'path');l.setAttribute('d',`M318 312 Q ${(318+x)/2} ${Math.min(y,300)-220} ${x} ${y-92}`);l.setAttribute('stroke',c);l.setAttribute('stroke-width','4');l.setAttribute('fill','none');l.setAttribute('stroke-dasharray','3 12');l.setAttribute('stroke-linecap','round');homes.appendChild(l);LN.push(l);});
+
+// ---------- render ----------
+function vis(id,t){const a=START[id],d=DUR[id],fi=.6,fo=.6; const u=t-a; const on=u>=-.01&&u<=d+.6;
+  $(id).style.opacity=on?Math.min(P(u,0,fi),1-P(u,d,d+fo)):0; return on?u:null;}
+window.render=function(t){
+ let u;
+ if((u=vis('s0',t))!==null){document.querySelectorAll('#s0 .dw').forEach((p,i)=>draw(p,ease(P(u,.2+i*.3,5))));
+   const i0=eo(P(u,.4,1.4));$('iso0').style.opacity=i0;$('iso0').style.transform=`scale(${.7+.3*i0})`; rise($('t0'),u,1.0,1.4,30);}
+ if((u=vis('s1',t))!==null){rise($('t1'),u,.3,1.2,30);}
+ if((u=vis('s2',t))!==null){const step=DUR.s2/4;const idx=Math.min(3,Math.floor(u/step));const lt=u-idx*step;const w=$('word');w.textContent=WORDS[idx][0];w.style.color=WORDS[idx][2];
+   const p=eo(cl(lt/.5)),out=idx<3?cl((lt-(step-.35))/.3):0;w.style.opacity=p*(1-out);w.style.transform=`translateY(${(1-p)*30-out*20}px)`;$('wsub').textContent=WORDS[idx][1];$('wsub').style.opacity=cl((lt-.25)/.5)*(1-out);}
+ if((u=vis('s3',t))!==null){rise($('t3'),u,.3,1.2,24);}
+ if((u=vis('s4',t))!==null){const v=51.3*eo(P(u,.4,2.6));$('num').innerHTML=v.toFixed(1).replace('.',',')+'<span style="font-size:.42em"> %</span>';rise($('n1'),u,1.6,1,24);rise($('n2'),u,4.6,1,24);rise($('n3'),u,5,1,0);}
+ if((u=vis('s5',t))!==null){const pl=eo(P(u,.2,2)),pr=eo(P(u,.4,2.2));$('shL').setAttribute('transform',`translate(${-(1-pl)*900} ${(1-pl)*200})`);$('shR').setAttribute('transform',`translate(${(1-pr)*900} ${(1-pr)*200})`);
+   $('sun').setAttribute('r',230*eo(P(u,.5,2.2)));const lw=ease(P(u,1.2,3.2));$('logoW').style.clipPath=`inset(0 ${100-lw*100}% 0 0)`;$('logoW').style.transform=`scale(${1.04-.04*lw})`;}
+ if((u=vis('s6',t))!==null){rise($('d0'),u,.3,.8,20);rise($('d1'),u,.8,1.1,30);[...$('d3').children].forEach((d,i)=>rise(d,u,3.9+i*1.0,.9,30));rise($('d4'),u,8.6,1,16);}
+ if((u=vis('s7',t))!==null){const a=eo(P(u,.1,1.6));$('pL').style.transform=`translateX(${-(1-a)*760}px)`;$('pR').style.transform=`translateX(${(1-a)*760}px)`;const c=eo(P(u,1,2.4));$('cL').setAttribute('transform',`translate(${-(1-c)*500} 0)`);$('cR').setAttribute('transform',`translate(${(1-c)*500} 0)`);
+   draw($('arc'),ease(P(u,2.8,4.2)));const q=eo(P(u,4,4.8));$('qm').style.opacity=q;$('qm').setAttribute('transform',`translate(960 470) scale(${.6+.4*q}) translate(-960 -470)`);rise($('t7'),u,.8,1,20);rise($('t7b'),u,5,1,20);}
+ if((u=vis('s8',t))!==null){[...$('orList').children].forEach((d,i)=>rise(d,u,.5+i*1.7,.9,26));}
+ if((u=vis('s9',t))!==null){const c=eo(P(u,.2,2.6));netG.setAttribute('transform',`translate(${NC.x} ${NC.y}) rotate(${-50*(1-c)}) scale(${.2+.8*c}) translate(${-NC.x} ${-NC.y})`);netG.style.opacity=c;
+   spokes.forEach((s,i)=>draw(s,eo(P(u,.4+i*.02,1.8+i*.02))));rings.forEach((r,i)=>draw(r.p,ease(P(u,1+r.k*.35,2.4+r.k*.35))));
+   knots.forEach((k,i)=>{const p=eo(P(u,3.6+i*.12,4.2+i*.12));k.style.opacity=p;});threads.forEach((th,i)=>{th.style.opacity=ease(P(u,5.5+i*.5,6.5+i*.5));});
+   rise($('t9'),u,.8,1,20);rise($('t9b'),u,2.2,1,20);}
+ if((u=vis('s10',t))!==null){W.forEach((e,i)=>{const ph=((u*0.8+i/4)%1);const r=40+ph*240;e.setAttribute('d',`M${300+r*Math.cos(-2.6)} ${322+r*Math.sin(-2.6)} A ${r} ${r} 0 0 1 ${300+r*Math.cos(-.55)} ${322+r*Math.sin(-.55)}`);e.setAttribute('stroke-width',6*(1-ph)+1);e.setAttribute('opacity',(1-ph)*P(u,.5,1.5));});
+   LN.forEach((l,i)=>draw(l,ease(P(u,1.5+i*.8,3.3+i*.8))));HE.forEach((h,i)=>{h.style.opacity=eo(P(u,2.8+i*.8,3.5+i*.8));});rise($('t10'),u,.6,1,20);rise($('t10b'),u,1.8,1,16);}
+ if((u=vis('s11',t))!==null){rise($('t11'),u,.3,1,24);rise($('t11b'),u,2.2,1,20);const D=DUR.s11;const AT=[11.3,13.7,19.4,21.0];[...$('al').children].forEach((d,i)=>rise(d,u,AT[i],.9,24));}
+ if((u=vis('s12',t))!==null){rise($('t12'),u,.3,1,24);draw($('fl2'),ease(P(u,2,DUR.s12*.8)));[...$('flow').children].forEach((d,i)=>rise(d,u,2+i*DUR.s12*.16,.9,24));}
+ if((u=vis('s13',t))!==null){rise($('t13'),u,.3,1,24);[...$('win').children].forEach((d,i)=>rise(d,u,DUR.s13*.32+i*DUR.s13*.18,.9,30));}
+ if((u=vis('s14',t))!==null){const l=eo(P(u,.3,1.9));$('endlogo').style.opacity=l;$('endlogo').style.transform=`translateY(${(1-l)*20}px)`;rise($('t14'),u,1.6,1,20);rise($('t14b'),u,DUR.s14*.45,1,16);rise($('f14'),u,DUR.s14*.55,1,0);}
+ $('fade').style.opacity=P(t,TOTAL-1.4,TOTAL);
+};
+render(0);
+</script>
+</body></html>
