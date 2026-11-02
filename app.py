@@ -180,7 +180,8 @@ header[data-testid="stHeader"],[data-testid="stToolbar"],[data-testid="stDecorat
 a{{color:inherit}}
 :focus-visible{{outline:3px solid var(--lav);outline-offset:3px}}
 .wrap{{max-width:var(--maxw);margin:0 auto;padding:0 28px}}
-section.s{{padding:96px 0;scroll-margin-top:72px}}
+section.s{{padding:96px 0;scroll-margin-top:76px}}
+section.hero{{scroll-margin-top:76px}}
 .serif{{font-family:var(--serif)}}
 h1,h2,h3{{font-family:var(--serif);font-weight:600;letter-spacing:-.01em;color:inherit;margin:0}}
 h2.t{{font-size:clamp(34px,4.6vw,58px);line-height:1.06;max-width:16ch}}
@@ -189,7 +190,7 @@ p.lead{{font-size:clamp(18px,1.6vw,21px);line-height:1.6;max-width:60ch;color:va
 p{{line-height:1.65}}
 .wave{{display:block;width:100%;height:90px!important}}
 /* nav */
-.nav{{position:sticky;top:0;z-index:50;background:rgba(243,236,223,.92);backdrop-filter:blur(8px);border-bottom:1px solid rgba(20,69,86,.1)}}
+.nav{{position:fixed;top:0;left:0;right:0;z-index:999990;background:rgba(243,236,223,.92);backdrop-filter:blur(8px);border-bottom:1px solid rgba(20,69,86,.1)}}
 .nav .wrap{{display:flex;align-items:center;justify-content:space-between;height:68px;gap:24px}}
 .nav .wm{{width:156px;display:block}}
 .nav nav{{display:flex;gap:26px;font-size:15px}}
@@ -201,7 +202,15 @@ p{{line-height:1.65}}
 .btn.o{{border:1.5px solid var(--teal);color:var(--teal)!important}}
 .btn.c{{background:var(--clay);color:#fff!important}}
 .nav .btn{{padding:10px 18px;font-size:14px}}
-@media (max-width:900px){{.nav nav{{display:none}}}}
+.navspace{{height:68px}}
+.nav nav a.on,.nav nav a:focus-visible{{color:var(--clay)}}
+@media (max-width:900px){{
+  .nav .wrap{{flex-wrap:wrap;height:auto;padding-top:10px;padding-bottom:0;row-gap:6px}}
+  .nav nav{{order:3;width:100%;overflow-x:auto;white-space:nowrap;gap:20px;padding:6px 0 10px;scrollbar-width:none;-webkit-overflow-scrolling:touch}}
+  .nav nav::-webkit-scrollbar{{display:none}}
+  .navspace{{height:112px}}
+  section.s,section.hero{{scroll-margin-top:118px}}
+}}
 /* hero */
 .hero{{padding:64px 0 40px}}
 .hero .grid{{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}}
@@ -414,6 +423,7 @@ H(f"""
   </nav>
   <a class="btn p" href="#video">Ver el video</a>
 </div></div>
+<div class="navspace"></div>
 
 <section class="hero" id="inicio"><div class="wrap">
   <div class="grid">
